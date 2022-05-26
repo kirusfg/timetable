@@ -16,7 +16,8 @@ should be the same:
 - [ ] View comprehensive information about the course and the instructor
 - [ ] Share schedules among students
 - [ ] Suggest courses based on year of study
-- [ ] Export a schedule to a nice looking PDF or calendar file
+- [ ] Export a schedule to a nice looking PDF or calendar file (contact the 
+Timetable iOS app developer)
 - [ ] Vote on different aspects of a schedule (convenience, morning/evening, 
 instructors)
 - [ ] Store syllabi
