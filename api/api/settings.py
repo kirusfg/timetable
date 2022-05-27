@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'apps.users',
+    'apps.timetable',
+    'apps.registrar',
 ]
 
 MIDDLEWARE = [
@@ -50,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'timetable.urls'
+ROOT_URLCONF = 'api.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'timetable.wsgi.application'
+WSGI_APPLICATION = 'api.wsgi.application'
 
 
 # Database

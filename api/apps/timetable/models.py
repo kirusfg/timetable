@@ -31,7 +31,7 @@ class Season(models.Model):
 class Semester(models.Model):
     id = models.IntegerField(primary_key=True)
     year = models.DateField()
-    season = models.ForeignKey(Season)
+    season = models.ForeignKey(Season, on_delete=models.CASCADE)
 
 
 class Course(models.Model):
@@ -42,8 +42,10 @@ class Course(models.Model):
     title = models.CharField(max_length=200)
     desc = models.CharField(max_length=1000)
 
-    last_taught = models.ForeignKey(Semester)
-    term = models.ForeignKey(Semester)
+    last_taught = models.ForeignKey(
+        Semester, on_delete=models.CASCADE, related_name='+')
+    term = models.ForeignKey(
+        Semester, on_delete=models.CASCADE, related_name='+')
 
     credits_ects = models.IntegerField()
     credits_us = models.IntegerField()
@@ -51,7 +53,7 @@ class Course(models.Model):
     academic_level = models.ForeignKey(
         AcademicLevel,
         on_delete=models.DO_NOTHING,
-        to_field=id,
+        to_field='id',
     )
 
     department = models.ForeignKey(
@@ -64,9 +66,12 @@ class Course(models.Model):
         on_delete=models.DO_NOTHING,
     )
 
-    antireq = models.ForeignKey('self', on_delete=models.CASCADE)
-    coreq = models.ForeignKey('self', on_delete=models.CASCADE)
-    prereq = models.ForeignKey('self', on_delete=models.CASCADE)
+    antireqs = models.ForeignKey(
+        'self', on_delete=models.CASCADE, related_name='+')
+    coreqs = models.ForeignKey(
+        'self', on_delete=models.CASCADE, related_name='+')
+    prereqs = models.ForeignKey(
+        'self', on_delete=models.CASCADE, related_name='+')
 
     breadth = models.CharField(max_length=50)
     ccdisplay = models.BooleanField()
