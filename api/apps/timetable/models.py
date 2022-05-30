@@ -16,22 +16,10 @@ class School(models.Model):
     name = models.CharField(max_length=100)
 
 
-class Season(models.Model):
-    SEASON_CHOICES = [
-        ('F', 'Fall'),
-        ('SP', 'Spring'),
-        ('SM', 'Summer'),
-    ]
-    season = models.CharField(
-        max_length=2,
-        choices=SEASON_CHOICES,
-    )
-
-
 class Semester(models.Model):
     id = models.IntegerField(primary_key=True)
-    year = models.DateField()
-    season = models.ForeignKey(Season, on_delete=models.CASCADE)
+    season = models.CharField(max_length=10)
+    year = models.IntegerField()
 
 
 class Course(models.Model):
@@ -67,11 +55,26 @@ class Course(models.Model):
     )
 
     antireqs = models.ForeignKey(
-        'self', on_delete=models.CASCADE, related_name='+')
+        'self',
+        on_delete=models.CASCADE,
+        related_name='+',
+        blank=True,
+        null=True
+    )
     coreqs = models.ForeignKey(
-        'self', on_delete=models.CASCADE, related_name='+')
+        'self',
+        on_delete=models.CASCADE,
+        related_name='+',
+        blank=True,
+        null=True
+    )
     prereqs = models.ForeignKey(
-        'self', on_delete=models.CASCADE, related_name='+')
+        'self',
+        on_delete=models.CASCADE,
+        related_name='+',
+        blank=True,
+        null=True
+    )
 
     breadth = models.CharField(max_length=50)
     ccdisplay = models.BooleanField()
