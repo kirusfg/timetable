@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'django_cron',
     'corsheaders',
 
     'apps.users',
@@ -100,6 +101,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': '10',
 }
+
+
+# Django CRON jobs
+# https://django-cron.readthedocs.io/en/latest/
+CRON_CLASSES = [
+    'apps.registrar.cron.RegistrarSync',
+]
 
 
 # Django CORS middleware
