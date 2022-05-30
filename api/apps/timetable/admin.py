@@ -1,10 +1,22 @@
 from django.contrib import admin
 
-from .models import Course, Semester, AcademicLevel, Department, School, Season
+from .models import Course, Semester, AcademicLevel, Department, School
 
-admin.site.register(Course)
-admin.site.register(Semester)
-admin.site.register(AcademicLevel)
+
+@admin.register(Semester)
+class SemesterAdmin(admin.ModelAdmin):
+    list_display = ['id', 'season', 'year']
+
+
+@admin.register(AcademicLevel)
+class AcademicLevel(admin.ModelAdmin):
+    list_display = ['level']
+
+
+@admin.register(Course)
+class CourseAdmin(admin.ModelAdmin):
+    list_display = ['abbr', 'instance']
+
+
 admin.site.register(Department)
 admin.site.register(School)
-admin.site.register(Season)
