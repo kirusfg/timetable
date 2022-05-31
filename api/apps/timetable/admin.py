@@ -9,7 +9,7 @@ class SemesterAdmin(admin.ModelAdmin):
 
 
 @admin.register(AcademicLevel)
-class AcademicLevel(admin.ModelAdmin):
+class AcademicLevelAdmin(admin.ModelAdmin):
     list_display = ['level']
 
 
