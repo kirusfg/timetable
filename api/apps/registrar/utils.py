@@ -1,7 +1,9 @@
 import requests
 from requests import JSONDecodeError, Response
+from typing import NamedTuple
 
 from ..timetable.models import Semester, Course, School, AcademicLevel, Section
+
 
 uri = 'https://registrar.nu.edu.kz/my-registrar/public-course-catalog/json'
 
@@ -90,10 +92,32 @@ def convert_course(course: dict) -> Course:
     )
 
 
+class SectionTitle(NamedTuple):
+    number: int
+    type: str
+
+
+def _parse_title(title: str) -> SectionTitle:
+    """The title is of format NT, where N is the number of the section,
+    and T is its type. This function finds where to split the title and
+    returns a tuple with the values of N and T."""
+    i = 0
+    for (index, c) in enumerate(title):
+        if c.isalpha():
+            i = index
+            break
+
+    number = title[:i]
+    type = title[i:]
+
+    return SectionTitle(number, type)
+
+
 def convert_section(section: dict, course: Course) -> Section:
     instance = section['INSTANCEID']
 
     title = section['ST']
+    (number, type) = _parse_title(title)
 
     days = section['DAYS']
     times = section['TIMES']
@@ -109,7 +133,8 @@ def convert_section(section: dict, course: Course) -> Section:
     return Section(
         instance,
         course.id,
-        title,
+        number,
+        type,
         days,
         times,
         room,

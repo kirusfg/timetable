@@ -40,6 +40,7 @@ class RegistrarSync(CronJobBase):
             # Get the schedule for this course
             sections = get_sections(course, current_semester)
 
-            print(sections)
+            for section in sections:
+                print('%s %s' % (section.number, section.type))
 
             course.save()

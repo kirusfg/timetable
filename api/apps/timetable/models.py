@@ -138,8 +138,9 @@ class Section(models.Model):
         related_name='+'
     )
 
-    # TODO: convert this into a proper [Number][SectionType] structure
-    title = models.CharField(max_length=10)
+    number = models.IntegerField()
+    # TODO: consider making a list of choices for this field
+    type = models.CharField(max_length=10)
 
     # TODO: consider giving these fields better representation
     days = models.CharField(max_length=20)
