@@ -35,9 +35,15 @@ class Course(models.Model):
     desc = models.CharField(max_length=1000)
 
     last_taught = models.ForeignKey(
-        Semester, on_delete=models.CASCADE, related_name='+')
+        Semester,
+        on_delete=models.CASCADE,
+        related_name='+'
+    )
     term = models.ForeignKey(
-        Semester, on_delete=models.CASCADE, related_name='+')
+        Semester,
+        on_delete=models.CASCADE,
+        related_name='+'
+    )
 
     credits_ects = models.DecimalField(max_digits=4, decimal_places=2)
     credits_us = models.DecimalField(max_digits=4, decimal_places=2)
