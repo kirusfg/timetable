@@ -18,4 +18,6 @@ class CourseAdmin(admin.ModelAdmin):
     list_display = ['abbr', 'instance']
 
 
-admin.site.register(School)
+@admin.register(School)
+class SchoolAdmin(admin.ModelAdmin):
+    list_display = ['abbr', 'name']
