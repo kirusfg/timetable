@@ -19,6 +19,7 @@ section_dict = {
     'P': 'P',
     'Wsh': 'Wsh',
     'CP': 'CP',
+    'Int': 'Internship',
 }
 
 
