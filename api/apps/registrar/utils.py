@@ -1,7 +1,7 @@
 import requests
 from requests import JSONDecodeError, Response
 
-from ..timetable.models import Semester, Course, School, AcademicLevel
+from ..timetable.models import Semester, Course, School, AcademicLevel, Section
 
 uri = 'https://registrar.nu.edu.kz/my-registrar/public-course-catalog/json'
 
@@ -19,6 +19,16 @@ section_dict = {
     'P': 'P',
     'Wsh': 'Wsh',
     'CP': 'CP',
+}
+
+
+days_dict = {
+    'M': 'Monday',
+    'T': 'Tuesday',
+    'W': 'Wednesday',
+    'R': 'Thursday',
+    'F': 'Friday',
+    'S': 'Saturday',
 }
 
 
@@ -79,6 +89,36 @@ def convert_course(course: dict) -> Course:
     )
 
 
+def convert_section(section: dict, course: Course) -> Section:
+    instance = section['INSTANCEID']
+
+    title = section['ST']
+
+    days = section['DAYS']
+    times = section['TIMES']
+    room = section['ROOM']
+
+    instructors = section['FACULTY']
+
+    capacity = section['CAPACITY']
+    enrolled = section['ENR']
+
+    final_exam = section['FINALEXAM']
+
+    return Section(
+        instance,
+        course.id,
+        title,
+        days,
+        times,
+        room,
+        instructors,
+        capacity,
+        enrolled,
+        final_exam
+    )
+
+
 def get_courses(semester: Semester) -> list[Course]:
     params = {
         'method': 'getSearchData',
@@ -111,3 +151,24 @@ def get_courses(semester: Semester) -> list[Course]:
     courses = list(map(convert_course, courses))
 
     return courses
+
+
+def get_sections(course: Course, semester: Semester) -> list[Section]:
+    params = {
+        'method': 'getSchedule',
+        'termId': semester._id,
+        'courseId': course.id,
+    }
+
+    res = requests.post(uri, params)
+
+    try:
+        sections = res.json()
+    except JSONDecodeError:
+        print('Failed to parse the JSON in get_section')
+        print_response(res)
+        print(params)
+
+    sections = list(map(convert_section, sections, [course] * len(sections)))
+
+    return sections

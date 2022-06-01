@@ -1,7 +1,7 @@
 from django_cron import CronJobBase, Schedule
 from django.db import IntegrityError
 
-from .utils import get_current_semester, get_courses
+from .utils import get_current_semester, get_courses, get_sections
 from ..timetable.models import Semester, Course
 
 
@@ -12,14 +12,14 @@ class RegistrarSync(CronJobBase):
     code = 'registrar.sync'
 
     def do(self):
-        semester: Semester = get_current_semester()
+        current_semester: Semester = get_current_semester()
 
         try:
-            semester.save()
+            current_semester.save()
         except IntegrityError:
             print('This semester already exists; continuing')
 
-        courses: list[Course] = get_courses(semester)
+        courses: list[Course] = get_courses(current_semester)
 
         for course in courses:
             print(course)
@@ -36,5 +36,10 @@ class RegistrarSync(CronJobBase):
 
             course.school.save()
             course.academic_level.save()
+
+            # Get the schedule for this course
+            sections = get_sections(course, current_semester)
+
+            print(sections)
 
             course.save()
