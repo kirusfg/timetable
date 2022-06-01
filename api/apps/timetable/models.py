@@ -128,3 +128,31 @@ class Course(models.Model):
         #     self.ccdisplay,
         #     self.rno,
         # )
+
+
+class Section(models.Model):
+    instance = models.IntegerField(primary_key=True)
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        related_name='+'
+    )
+
+    # TODO: convert this into a proper [Number][SectionType] structure
+    title = models.CharField(max_length=10)
+
+    # TODO: consider giving these fields better representation
+    days = models.CharField(max_length=20)
+    times = models.CharField(max_length=20)
+    room = models.CharField(max_length=30)
+
+    # TODO: create an Instructor model and parse the string
+    instructors = models.CharField(max_length=200)
+
+    capacity = models.IntegerField()
+    enrolled = models.IntegerField()
+
+    final_exam = models.BooleanField()
+
+    def __str__(self):
+        return '%s' % (self.course.abbr)
