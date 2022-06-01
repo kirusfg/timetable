@@ -5,7 +5,7 @@ class AcademicLevel(models.Model):
     id = models.IntegerField(primary_key=True)
     level = models.CharField(max_length=50)
 
-    def __repr__(self):
+    def __str__(self):
         return 'Academic level: %s' % (self.level)
 
 
@@ -14,16 +14,16 @@ class School(models.Model):
     abbr = models.CharField(max_length=50)
     name = models.CharField(max_length=100)
 
-    def __repr__(self):
-        return 'School: [%s] %s' % (self.abbr, self.name)
+    def __str__(self):
+        return '[%s] %s' % (self.abbr, self.name)
 
 
 class Semester(models.Model):
     _id = models.IntegerField(null=True, blank=True)
     name = models.CharField(primary_key=True, max_length=50)
 
-    def __repr__(self):
-        return 'Semester: %s' % (self.name)
+    def __str__(self):
+        return '%s' % (self.name)
 
 
 class Course(models.Model):
@@ -81,43 +81,44 @@ class Course(models.Model):
     ccdisplay = models.BooleanField()
     rno = models.IntegerField()
 
-    def __repr__(self):
-        return 'Course: {\
-            id: %s\
-            instance: %s\
-            abbr: %s\
-            title: %s\
-            desc: %s\
-            last_taught: %s\
-            term: %s\
-            credits_ects: %s\
-            credits_us: %s\
-            academic_level: %s\
-            department: %s\
-            school: %s\
-            antireqs: %s\
-            coreqs: %s\
-            prereqs: %s\
-            breadth: %s\
-            ccdisplay: %s\
-            rno: %s\
-        ' % (
-            self.id,
-            self.instance,
-            self.abbr,
-            self.title,
-            self.desc,
-            self.last_taught,
-            self.term,
-            self.credits_ects,
-            self.credits_us,
-            self.academic_level,
-            self.department,
-            self.school,
-            self.antireqs,
-            self.coreqs,
-            self.prereqs,
-            self.breadth,
-            self.ccdisplay,
-            self.rno,
-        )
+    def __str__(self):
+        return '%s' % (self.abbr)
+        # return '{\
+        #     id: %s\
+        #     instance: %s\
+        #     abbr: %s\
+        #     title: %s\
+        #     desc: %s\
+        #     last_taught: %s\
+        #     term: %s\
+        #     credits_ects: %s\
+        #     credits_us: %s\
+        #     academic_level: %s\
+        #     department: %s\
+        #     school: %s\
+        #     antireqs: %s\
+        #     coreqs: %s\
+        #     prereqs: %s\
+        #     breadth: %s\
+        #     ccdisplay: %s\
+        #     rno: %s\
+        # }' % (
+        #     self.id,
+        #     self.instance,
+        #     self.abbr,
+        #     self.title,
+        #     self.desc,
+        #     self.last_taught,
+        #     self.term,
+        #     self.credits_ects,
+        #     self.credits_us,
+        #     self.academic_level,
+        #     self.department,
+        #     self.school,
+        #     self.antireqs,
+        #     self.coreqs,
+        #     self.prereqs,
+        #     self.breadth,
+        #     self.ccdisplay,
+        #     self.rno,
+        # )
