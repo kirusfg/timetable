@@ -7,33 +7,6 @@ from ..timetable.models import Semester, Course, School, AcademicLevel, Section
 
 uri = 'https://registrar.nu.edu.kz/my-registrar/public-course-catalog/json'
 
-section_dict = {
-    'L': 'Lecture',
-    'T': 'Tutorial',
-    'Lb': 'Lab',
-    'PLb': 'PhysLab',
-    'BLb': 'BioLab',
-    'ChLb': 'ChemLab',
-    'CLb': 'CompLab',
-    'S': 'Seminar',
-    'R': 'Recitation',
-    'IS': 'IS',
-    'P': 'P',
-    'Wsh': 'Wsh',
-    'CP': 'CP',
-    'Int': 'Internship',
-}
-
-
-days_dict = {
-    'M': 'Monday',
-    'T': 'Tuesday',
-    'W': 'Wednesday',
-    'R': 'Thursday',
-    'F': 'Friday',
-    'S': 'Saturday',
-}
-
 
 def print_response(res: Response):
     for attr in dir(res):

@@ -1,6 +1,36 @@
 from django.db import models
 
 
+section_dict = {
+    'L': 'Lecture',
+    'T': 'Tutorial',
+    'Lb': 'Lab',
+    'PLb': 'Physics Lab',
+    'BLb': 'Biology Lab',
+    'ChLb': 'Chemistry Lab',
+    'CLb': 'Computer Lab',
+    'S': 'Seminar',
+    'R': 'Recitation',
+    'IS': 'Independent Study',
+    'P': 'Project',
+    'Wsh': 'Wsh',
+    'CP': 'Capstone Project',
+    'Int': 'Internship',
+    'ThDef': 'Thesis Defence',
+    'OCA': 'Occupational Competency Assessment',
+}
+
+
+days_dict = {
+    'M': 'Monday',
+    'T': 'Tuesday',
+    'W': 'Wednesday',
+    'R': 'Thursday',
+    'F': 'Friday',
+    'S': 'Saturday',
+}
+
+
 class AcademicLevel(models.Model):
     id = models.IntegerField(primary_key=True)
     level = models.CharField(max_length=50)
