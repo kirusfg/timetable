@@ -169,12 +169,12 @@ class Section(models.Model):
     )
 
     number = models.IntegerField()
-    # TODO: consider making a list of choices for this field
-    type = models.CharField(max_length=10)
 
-    # TODO: consider giving these fields better representation
-    days = models.CharField(max_length=20)
-    times = models.CharField(max_length=20)
+    SECTION_TYPES = [(short, full) for short, full in section_dict.items()]
+    type = models.CharField(max_length=10, choices=SECTION_TYPES)
+
+    days = models.CharField(max_length=30)
+    times = models.CharField(max_length=30)
     room = models.CharField(max_length=30)
 
     # TODO: create an Instructor model and parse the string
