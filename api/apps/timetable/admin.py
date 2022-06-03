@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Course, Semester, AcademicLevel, School
+from .models import Course, Semester, AcademicLevel, School, Section
 
 
 @admin.register(Semester)
@@ -21,3 +21,8 @@ class CourseAdmin(admin.ModelAdmin):
 @admin.register(School)
 class SchoolAdmin(admin.ModelAdmin):
     list_display = ['abbr', 'name']
+
+
+@admin.register(Section)
+class SectionAdmin(admin.ModelAdmin):
+    list_display = ['course', 'number', 'type']
