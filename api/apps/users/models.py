@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from apps.timetable.models import AcademicLevel
+from apps.timetable.models.common import AcademicLevel
 
 
 class Student(User):

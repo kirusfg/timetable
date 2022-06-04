@@ -2,7 +2,9 @@ import requests
 from requests import JSONDecodeError, Response
 from typing import NamedTuple
 
-from ..timetable.models import Semester, Course, School, AcademicLevel, Section
+from apps.timetable.models.common import Semester, AcademicLevel, School
+from apps.timetable.models.course import Course
+from apps.timetable.models.section import Section
 
 
 uri = 'https://registrar.nu.edu.kz/my-registrar/public-course-catalog/json'

@@ -1,8 +1,7 @@
 from django_cron import CronJobBase, Schedule
-from django.db import IntegrityError, DataError
+from django.db import IntegrityError
 
 from .utils import get_current_semester, get_courses, get_sections
-from ..timetable.models import Semester, Course
 
 
 class RegistrarSync(CronJobBase):
