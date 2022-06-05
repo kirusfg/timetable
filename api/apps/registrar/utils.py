@@ -1,4 +1,6 @@
+import logging
 import requests
+
 from requests import JSONDecodeError, Response
 from typing import NamedTuple
 
@@ -7,6 +9,7 @@ from apps.timetable.models.course import Course
 from apps.timetable.models.section import Section
 
 
+logger = logging.getLogger('django')
 uri = 'https://registrar.nu.edu.kz/my-registrar/public-course-catalog/json'
 
 
@@ -146,7 +149,7 @@ def get_courses(semester: Semester) -> list[Course]:
     try:
         courses = res.json()['data']
     except JSONDecodeError:
-        print('Failed to parse the JSON in get_courses')
+        logger.error('Failed to parse the JSON in get_courses')
         print_response(res)
 
     courses = list(map(convert_course, courses))
@@ -166,9 +169,8 @@ def get_sections(course: Course, semester: Semester) -> list[Section]:
     try:
         sections = res.json()
     except JSONDecodeError:
-        print('Failed to parse the JSON in get_section')
+        logger.error('Failed to parse the JSON in get_section')
         print_response(res)
-        print(params)
 
     sections = list(map(convert_section, sections, [course] * len(sections)))
 
