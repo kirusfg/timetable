@@ -18,9 +18,13 @@ from django.contrib import admin
 from rest_framework import routers
 
 from apps.users import views as users_views
+from apps.timetable import views as timetable_views
 
 router = routers.DefaultRouter()
 router.register(r'users', users_views.UserViewSet)
+router.register(r'semesters', timetable_views.SemesterViewSet)
+router.register(r'courses', timetable_views.CourseViewSet)
+router.register(r'sections', timetable_views.SectionViewSet)
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),

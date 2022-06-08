@@ -1,8 +1,23 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
 
+from .models.common import Semester
+from .models.course import Course
+from .models.section import Section
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+
+class SemesterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['url', 'username', 'email', 'groups']
+        model = Semester
+        fields = '__all__'
+
+
+class CourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
+
+
+class SectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Section
+        fields = '__all__'

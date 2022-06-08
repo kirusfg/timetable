@@ -50,6 +50,8 @@ def convert_course(course: dict) -> Course:
         _id=course['LASTTAUGHT'],
     )
 
+    # TODO: add prereqs, coreqs, and antireqs
+
     term = Semester(_id=None, name=course['TERMNAME'])
 
     return Course(
