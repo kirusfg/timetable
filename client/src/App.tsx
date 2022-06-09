@@ -18,10 +18,30 @@ const App = () => {
     <>
       <Stack direction='row'>
         <Navbar>
-          <NavbarItem icon={<HomeIcon />} page='/' />
-          <NavbarItem icon={<TimetableIcon />} page='/timetable' />
-          <NavbarItem icon={<UsersIcon />} page='/users' />
-          <NavbarItem icon={<LoginIcon />} page='/login' />
+          <NavbarItem
+            title='Home'
+            accent='primary.400'
+            icon={<HomeIcon />}
+            page='/'
+          />
+          <NavbarItem
+            title='Timetable'
+            accent='primary.400'
+            icon={<TimetableIcon />}
+            page='/timetable'
+          />
+          <NavbarItem
+            title='Students'
+            accent='primary.400'
+            icon={<UsersIcon />}
+            page='/users'
+          />
+          <NavbarItem
+            title='Login'
+            accent='primary.400'
+            icon={<LoginIcon />}
+            page='/login'
+          />
         </Navbar>
         <Outlet />
       </Stack>

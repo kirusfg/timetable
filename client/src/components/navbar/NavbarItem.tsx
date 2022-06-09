@@ -6,11 +6,13 @@ import ListItemButton from '@mui/joy/ListItemButton';
 
 interface NavbarItemProps {
   page: string;
+  title: string;
+  accent: string;
   icon: React.ReactElement;
 }
 
 const NavbarItem = (props: NavbarItemProps) => {
-  let { page, icon } = props;
+  let { page, title, accent, icon } = props;
 
   let navigate = useNavigate();
   let resolved = useResolvedPath(page);
@@ -26,11 +28,19 @@ const NavbarItem = (props: NavbarItemProps) => {
 
   return (
     <ListItemButton
-      color={selected ? 'primary' : 'neutral'}
       sx={{
-        borderRadius: '25%',
+        borderRadius: '35%',
         padding: 1,
+        margin: '16px 0px',
         minHeight: '0',
+        bgcolor: selected ? accent : undefined,
+        color: selected ? 'common.white' : undefined,
+        boxShadow: selected ? '0 10px 12px #00000020' : undefined,
+        '&:hover': {
+          bgcolor: accent,
+          color: 'common.white',
+          boxShadow: '0 10px 12px #00000020',
+        }
       }}
       onClick={(event) => handleNavigation(event, page)}
     >
