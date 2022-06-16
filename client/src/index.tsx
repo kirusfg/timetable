@@ -12,6 +12,7 @@ import './index.css';
 import { store } from './app/store';
 import App from './App';
 import Home from './pages/Home';
+import Timetable from './pages/Timetable';
 
 
 const container = document.getElementById('root')!;
@@ -25,7 +26,7 @@ root.render(
           <Routes>
             <Route path='/' element={<App />}>
               <Route index element={<Home />} />
-              <Route path='users' element={<Home />} />
+              <Route path='timetable' element={<Timetable />} />
             </Route>
           </Routes>
         </BrowserRouter>
