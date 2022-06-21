@@ -1,7 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { CssVarsProvider } from '@mui/joy/styles';
+
 import {
   BrowserRouter,
   Routes,
@@ -21,7 +20,6 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <CssVarsProvider>
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<App />}>
@@ -30,7 +28,6 @@ root.render(
             </Route>
           </Routes>
         </BrowserRouter>
-      </CssVarsProvider>
     </Provider>
   </React.StrictMode>
 );

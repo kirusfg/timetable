@@ -20,26 +20,26 @@ const App = () => {
         <Navbar>
           <NavbarItem
             title='Home'
-            accent='primary.400'
-            icon={<HomeIcon />}
+            accent='primary.main'
+            icon={<HomeIcon fontSize="small" />}
             page='/'
           />
           <NavbarItem
             title='Timetable'
-            accent='primary.400'
-            icon={<TimetableIcon />}
+            accent='primary.main'
+            icon={<TimetableIcon fontSize="small" />}
             page='/timetable'
           />
           <NavbarItem
             title='Students'
-            accent='primary.400'
-            icon={<UsersIcon />}
+            accent='primary.main'
+            icon={<UsersIcon fontSize="small" />}
             page='/users'
           />
           <NavbarItem
             title='Login'
-            accent='primary.400'
-            icon={<LoginIcon />}
+            accent='primary.main'
+            icon={<LoginIcon fontSize="small" />}
             page='/login'
           />
         </Navbar>

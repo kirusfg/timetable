@@ -1,6 +1,5 @@
 import Stack from '@mui/material/Stack';
-import Box from '@mui/joy/Box';
-import Typography from '@mui/joy/Typography';
+import Box from '@mui/material/Box';
 
 
 interface PageProps {
@@ -15,14 +14,14 @@ const Page = (props: PageProps) => {
     <>
       <Box sx={{
         width: '100%',
-        bgcolor: 'background.level2',
+        bgcolor: 'grey.100',
       }}>
         <Stack>
           <Box sx={{
-            bgcolor: 'background.body',
+            bgcolor: 'background.paper',
             padding: 4,
           }}>
-            <Typography level='h2'>{title}</Typography>
+            <h1>{title}</h1>
           </Box>
           <Box sx={{
             padding: 4,

@@ -2,9 +2,8 @@ import React from 'react';
 
 import Stack from '@mui/material/Stack';
 
-import Typography from '@mui/joy/Typography';
-import List from '@mui/joy/List';
-import Box from '@mui/joy/Box';
+import List from '@mui/material/List';
+import Box from '@mui/material/Box';
 
 
 interface NavbarProps {
@@ -18,10 +17,10 @@ const Navbar: React.FC<NavbarProps> = (props) => {
     <Box sx={{
       height: 'calc(100vh - 2rem)',
       padding: '1rem 1.5rem',
-      bgcolor: 'background.level1',
+      bgcolor: 'grey.50',
     }}>
       <Stack spacing={8} direction='column' justifyContent='space-between'>
-        <Typography level='h1'>K</Typography>
+        <h1>K</h1>
         <List>
           {children}
         </List>

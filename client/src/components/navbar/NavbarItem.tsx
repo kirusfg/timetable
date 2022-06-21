@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useResolvedPath, useMatch } from 'react-router-dom';
 
-import ListItemButton from '@mui/joy/ListItemButton';
+import ListItemButton from '@mui/material/ListItemButton';
 
 
 interface NavbarItemProps {
@@ -19,7 +19,7 @@ const NavbarItem = (props: NavbarItemProps) => {
   let selected = useMatch({ path: resolved.pathname, end: true });
 
   const handleNavigation = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     page: string
   ) => {
     event.preventDefault();
@@ -31,8 +31,9 @@ const NavbarItem = (props: NavbarItemProps) => {
       sx={{
         borderRadius: '35%',
         padding: 1,
-        margin: '16px 0px',
+        margin: '2rem 0px',
         minHeight: '0',
+        fontSize: 6,
         bgcolor: selected ? accent : undefined,
         color: selected ? 'common.white' : undefined,
         boxShadow: selected ? '0 10px 12px #00000020' : undefined,

@@ -1,6 +1,5 @@
 import Stack from '@mui/material/Stack';
-import Box from '@mui/joy/Box';
-import Typography from '@mui/joy/Typography';
+import Box from '@mui/material/Box';
 
 import Page from './Page';
 
@@ -8,7 +7,7 @@ import Page from './Page';
 const Home = () => {
   return (
     <Page title='Home'>
-      <Typography level='body1'>Page body</Typography>
+      <p>Page body</p>
     </Page>
   );
 }
