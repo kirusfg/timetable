@@ -1,43 +1,75 @@
-import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import Skeleton from '@mui/material/Skeleton';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-
 import Page from './Page';
-import { useGetCoursesQuery } from '../features/api/apiSlice';
+import {
+  useGetCoursesQuery,
+  useGetSectionsQuery
+} from '../features/api/apiSlice';
+
+import Course from '../types/Course';
+import CourseCard from '../components/course/Course';
+
+import Section from '../types/Section';
+import SectionCard from '../components/course/Section';
 
 
 const Timetable = () => {
-  const { data, error, isLoading } = useGetCoursesQuery();
+  const {
+    data: coursesData,
+    error: coursesError,
+    isLoading: coursesAreLoading
+  } = useGetCoursesQuery();
+
+  const {
+    data: sectionsData,
+    error: sectionsError,
+    isLoading: sectionsAreLoading
+  } = useGetSectionsQuery();
 
   return (
     <Page title='Courses List'>
-      {isLoading ?
-        (<>
-          <CircularProgress />
-        </>) : error ?
-          (<>
-            <Alert severity="error">
-              <AlertTitle>Error</AlertTitle>
-              This is an error alert — <strong>check it out!</strong>
-            </Alert>
-          </>) : data ?
-            (<Card
-              sx={{
-                minWidth: '260px',
-                gap: 2,
-                bgcolor: 'background.body',
-              }}
-            >
-              <CardContent>
-                Yosemite Park
-              </CardContent>
-            </Card>) :
-            null}
+      {(coursesAreLoading || sectionsAreLoading) ?
+        <CircularProgress />
+        : null
+      }
+
+      {(coursesError || sectionsError) ?
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          Couldn't fetch courses from the server
+        </Alert>
+        : null
+      }
+
+      {(coursesData && sectionsData) ?
+        (coursesData.results.map((course: Course) => {
+          console.log(course.id);
+
+          let sections = sectionsData.results.filter((section: Section) =>
+            section.course === course.id
+          );
+
+          console.log(sections);
+
+          let sectionCards = sections.map((section: Section) =>
+            <SectionCard
+              key={section.instance}
+              section={section}
+            />
+          );
+          return <>
+            <CourseCard
+              key={course.abbr}
+              course={course}
+            />
+            {sectionCards}
+          </>;
+        }
+        ))
+        : null
+      }
     </Page>
   );
 }
