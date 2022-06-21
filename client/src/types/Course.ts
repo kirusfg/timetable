@@ -1,4 +1,4 @@
-export type Course = {
+type Course = {
   id: number;
   instance: number;
   abbr: string;
@@ -7,4 +7,6 @@ export type Course = {
   credits_ects: number;
   credits_us: number;
   department: string;
-}
+};
+
+export default Course;
