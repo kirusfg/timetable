@@ -1,46 +1,46 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
 
-import Stack from '@mui/material/Stack';
+import Stack from "@mui/material/Stack";
 import {
   HomeRounded as HomeIcon,
   GroupRounded as UsersIcon,
   LoginRounded as LoginIcon,
   CalendarTodayRounded as TimetableIcon,
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 
-import Navbar from './components/navbar/Navbar';
-import NavbarItem from './components/navbar/NavbarItem';
+import Navbar from "./components/navbar/Navbar";
+import NavbarItem from "./components/navbar/NavbarItem";
 
 
 const App = () => {
   return (
     <>
-      <Stack direction='row'>
+      <Stack direction="row">
         <Navbar>
           <NavbarItem
-            title='Home'
-            accent='primary.main'
+            title="Home"
+            accent="primary.main"
             icon={<HomeIcon fontSize="small" />}
-            page='/'
+            page="/"
           />
           <NavbarItem
-            title='Timetable'
-            accent='primary.main'
+            title="Timetable"
+            accent="primary.main"
             icon={<TimetableIcon fontSize="small" />}
-            page='/timetable'
+            page="/timetable"
           />
           <NavbarItem
-            title='Students'
-            accent='primary.main'
+            title="Students"
+            accent="primary.main"
             icon={<UsersIcon fontSize="small" />}
-            page='/users'
+            page="/users"
           />
           <NavbarItem
-            title='Login'
-            accent='primary.main'
+            title="Login"
+            accent="primary.main"
             icon={<LoginIcon fontSize="small" />}
-            page='/login'
+            page="/login"
           />
         </Navbar>
         <Outlet />
