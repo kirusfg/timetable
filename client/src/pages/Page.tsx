@@ -16,8 +16,9 @@ const Page = (props: PageProps) => {
       <Box sx={{
         width: "100%",
         bgcolor: "grey.100",
+        height: "100vh",
       }}>
-        <Stack>
+        <Stack sx={{ height: "100vh" }}>
           <Box sx={{
             bgcolor: "background.paper",
             padding: 4,
@@ -26,6 +27,7 @@ const Page = (props: PageProps) => {
           </Box>
           <Box sx={{
             padding: 4,
+            height: "100%",
           }}>
             {children}
           </Box>
