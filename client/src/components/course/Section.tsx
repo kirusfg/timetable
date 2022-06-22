@@ -6,7 +6,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-// import { ItemTypes } from "../../types/DnD";
 import Section from "../../types/Section";
 
 
