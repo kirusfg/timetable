@@ -15,7 +15,7 @@ const CourseCard: React.FC<CourseCardProps> = (props) => {
   let { course } = props;
 
   return (
-    <Card sx={{ maxWidth: 275 }}>
+    <Card sx={{ width: "100%", maxWidth: 300 }}>
       <CardContent>
         <Typography variant="body1">
           {course.abbr}

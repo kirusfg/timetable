@@ -24,7 +24,14 @@ const SectionCard: React.FC<SectionCardProps> = (props) => {
   }));
 
   return (
-    <Card ref={drag} sx={{ maxWidth: 200, opacity: isDragging ? 0.5 : 1 }}>
+    <Card
+      ref={drag}
+      sx={{
+        width: "100%",
+        maxWidth: 300,
+        opacity: isDragging ? 0.5 : 1
+      }}
+    >
       <CardContent>
         <Typography variant="body2">
           {section.number + " " + section.type}
