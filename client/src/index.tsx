@@ -15,8 +15,9 @@ import {
 import './index.css';
 import { store } from './app/store';
 import App from './App';
-import Home from './pages/Home';
-import Timetable from './pages/Timetable';
+import HomePage from './pages/Home';
+import SelectorPage from './pages/timetable/Selector';
+import TimetablePage from './pages/Timetable';
 
 
 const container = document.getElementById('root')!;
@@ -29,12 +30,15 @@ root.render(
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<App />}>
-              <Route index element={<Home />} />
-              <Route path='timetable' element={<Timetable />} />
+              <Route index element={<HomePage />} />
+              <Route path='timetable' element={<SelectorPage />}>
+                <Route index element={<TimetablePage />} />
+                <Route path='select' element={<SelectorPage />} />
+              </Route>
             </Route>
           </Routes>
         </BrowserRouter>
       </ReduxProvider>
     </DndProvider>
-  </React.StrictMode>
+  </React.StrictMode >
 );

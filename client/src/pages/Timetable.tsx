@@ -6,7 +6,7 @@ import Selector from "../components/timetable/Selector";
 import Table from "../components/timetable/table/Table";
 
 
-const Timetable = () => {
+const TimetablePage = () => {
   return (
     <Page title="Courses List">
       <Stack
@@ -20,4 +20,4 @@ const Timetable = () => {
   );
 }
 
-export default Timetable;
+export default TimetablePage;

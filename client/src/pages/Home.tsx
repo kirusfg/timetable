@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Page from "./Page";
 
 
-const Home = () => {
+const HomePage = () => {
   return (
     <Page title="Home">
       <p>Page body</p>
@@ -12,4 +12,4 @@ const Home = () => {
   );
 }
 
-export default Home;
+export default HomePage;
