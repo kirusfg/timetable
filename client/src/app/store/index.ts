@@ -1,8 +1,10 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { apiSlice } from "./api/apiSlice";
+import { timetableSlice } from "./timetable/timetableSlice";
 
 export const store = configureStore({
   reducer: {
+    timetable: timetableSlice.reducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
