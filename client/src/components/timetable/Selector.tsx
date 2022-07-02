@@ -7,7 +7,7 @@ import ListItem from '@mui/material/ListItem';
 import {
   useGetCoursesQuery,
   useGetSectionsQuery
-} from '../../features/api/apiSlice';
+} from '../../app/store/api/apiSlice';
 
 import Course from '../../types/Course';
 import CourseCard from '../course/Course';
