@@ -29,6 +29,7 @@ const App = () => {
             accent="primary.main"
             icon={<TimetableIcon fontSize="small" />}
             page="/timetable"
+            isComplex
           />
           <NavbarItem
             title="Students"

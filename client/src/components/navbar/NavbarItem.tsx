@@ -9,14 +9,15 @@ interface NavbarItemProps {
   title: string;
   accent: string;
   icon: React.ReactElement;
+  isComplex?: boolean;
 }
 
 const NavbarItem = (props: NavbarItemProps) => {
-  let { page, title, accent, icon } = props;
+  let { page, accent, icon, isComplex } = props;
 
   let navigate = useNavigate();
   let resolved = useResolvedPath(page);
-  let selected = useMatch({ path: resolved.pathname, end: true });
+  let selected = useMatch({ path: resolved.pathname, end: !isComplex });
 
   const handleNavigation = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
