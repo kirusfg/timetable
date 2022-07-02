@@ -32,8 +32,8 @@ root.render(
             <Route path='/' element={<App />}>
               <Route index element={<HomePage />} />
               <Route path='timetable' element={<SelectorPage />}>
-                <Route index element={<TimetablePage />} />
-                <Route path='select' element={<SelectorPage />} />
+                <Route path='courses' element={<SelectorPage />} />
+                <Route path='sections' element={<TimetablePage />} />
               </Route>
             </Route>
           </Routes>
