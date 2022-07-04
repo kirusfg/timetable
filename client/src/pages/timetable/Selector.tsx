@@ -2,8 +2,8 @@ import Stack from "@mui/material/Stack";
 
 import Page from "../Page";
 
-import Selector from "../../components/timetable/Selector";
-import Table from "../../components/timetable/table/Table";
+import SelectedCoursesList from "../../components/timetable/selector/SelectedCoursesList";
+import Selector from "../../components/timetable/selector/Selector";
 
 
 const SelectorPage = () => {
@@ -13,9 +13,16 @@ const SelectorPage = () => {
         direction="row"
         spacing={4}
       >
-        <Selector />
+        <Stack
+          direction="row"
+          spacing={4}
+        >
+          <h4>Selected Courses</h4>
+          <SelectedCoursesList/>
+        </Stack>
+        <Selector/>
       </Stack>
-    </Page >
+    </Page>
   );
 }
 

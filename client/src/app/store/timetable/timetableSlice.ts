@@ -5,14 +5,17 @@ import type { RootState } from "../index";
 import Schedule from "../../../types/Schedule";
 import Section from "../../../types/Section";
 import Course from "../../../types/Course";
+import SectionGroup from "../../../types/SectionGroup";
 
 
 interface TimetableState {
-  schedule: Schedule
+  sectionGroups: SectionGroup[];
+  schedule: Schedule;
 };
 
 
 const initialState: TimetableState = {
+  sectionGroups: [],
   schedule: {
     courses: [],
     sections: [],
@@ -24,6 +27,17 @@ export const timetableSlice = createSlice({
   name: "timetable",
   initialState,
   reducers: {
+    groupSections: (state, action: PayloadAction<Section[]>) => {
+      let sections = action.payload;
+      let sectionGroups: SectionGroup[] = [];
+
+      let groups = new Set();
+      sections.forEach(({type, course, instance}) => {
+        groups.add({type, course, instance});
+      });
+      groups.forEach((group) => { console.log(group) });
+      state.sectionGroups = sectionGroups;
+    },
     chooseCourse: (state, action: PayloadAction<Course>) => {
       state.schedule.courses.push(action.payload);
     },
@@ -45,15 +59,18 @@ export const timetableSlice = createSlice({
 
 
 export const {
+  groupSections,
   chooseCourse,
   removeCourse,
   chooseSection,
   removeSection
 } = timetableSlice.actions;
 
+export const selectSectionGroups = (state: RootState): SectionGroup[] =>
+  state.timetable.sectionGroups;
 export const selectSchedule = (state: RootState): Schedule =>
   state.timetable.schedule;
-export const selectCourses = (state: RootState): Course[] =>
+export const selectScheduleCourses = (state: RootState): Course[] =>
   state.timetable.schedule.courses;
-export const selectSections = (state: RootState): Section[] =>
+export const selectScheduleSections = (state: RootState): Section[] =>
   state.timetable.schedule.sections;
