@@ -16,18 +16,21 @@ const Page = (props: PageProps) => {
       <Box sx={{
         width: "100%",
         bgcolor: "grey.100",
-        height: "100vh",
+        height: "100%",
+        maxHeight: "100%",
       }}>
-        <Stack sx={{ height: "100vh" }}>
+        <Stack sx={{ height: "100vh", maxHeight: "100vh", display: "flex" }}>
           <Box sx={{
             bgcolor: "background.paper",
             padding: 4,
+            flex: "0 1 auto",
           }}>
             <Typography variant="h3">{title}</Typography>
           </Box>
           <Box sx={{
             padding: 4,
-            height: "100%",
+            flex: "1 1 auto",
+            minHeight: 0,
           }}>
             {children}
           </Box>
