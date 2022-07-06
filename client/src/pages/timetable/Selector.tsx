@@ -1,26 +1,35 @@
 import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+
 
 import Page from "../Page";
-
-import SelectedCoursesList from "../../components/timetable/selector/SelectedCoursesList";
 import Selector from "../../components/timetable/selector/Selector";
+import SelectedCoursesList from
+  "../../components/timetable/selector/SelectedCoursesList";
 
 
 const SelectorPage = () => {
   return (
     <Page title="Courses List">
       <Stack
+        sx={{ height: "100%" }}
         direction="row"
         spacing={4}
       >
         <Stack
-          direction="row"
-          spacing={4}
+          sx={{
+            minWidth: "240px",
+            maxWidth: "240px",
+          }}
+          direction="column"
+          spacing={2}
         >
-          <h4>Selected Courses</h4>
-          <SelectedCoursesList/>
+          <Typography variant="h6">
+            Chosen Courses
+          </Typography>
+          <SelectedCoursesList />
         </Stack>
-        <Selector/>
+        <Selector />
       </Stack>
     </Page>
   );

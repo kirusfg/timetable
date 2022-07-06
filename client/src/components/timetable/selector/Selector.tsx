@@ -1,104 +1,152 @@
-import React from "react";
-
 import CircularProgress from '@mui/material/CircularProgress';
+import { Button, ButtonGroup } from "@mui/material";
 import Alert from '@mui/material/Alert';
+import Stack from "@mui/material/Stack";
 import AlertTitle from '@mui/material/AlertTitle';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import {
-  useGetCoursesQuery,
-  useGetSectionsQuery
-} from '../../../app/store/api/apiSlice';
-import {useAppSelector} from "../../../app/hooks";
-import {selectSectionGroups} from "../../../app/store/timetable/timetableSlice";
+  DataGrid,
+  GridColDef,
+  GridRenderCellParams
+} from '@mui/x-data-grid';
 
-import Course from '../../../types/Course';
-import CourseCard from '../course/Course';
+import { AppDispatch } from "../../../app/store";
+import { useGetCoursesQuery, useGetSectionsQuery } from
+  '../../../app/store/api/apiSlice';
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { chooseCourse, selectSchedule, selectSectionGroups } from "../../../app/store/timetable/timetableSlice";
 
 import SectionGroup from "../../../types/SectionGroup";
-import SectionGroupCard from '../course/SectionGroup';
-
-
-const convertCourses = (courses: Course[], sectionGroups: SectionGroup[], showSections:
-  boolean | undefined) => {
-  return courses.map((course: Course): React.ReactNode => {
-    let courseSectionGroups = sectionGroups.filter((sectionGroup: SectionGroup) =>
-      sectionGroup.course === course.id
-    );
-
-    let sectionGroupCards;
-    if (showSections) {
-      sectionGroupCards = courseSectionGroups.map((sectionGroup: SectionGroup) =>
-        <ListItem
-          key={sectionGroup.instance + sectionGroup.type}
-          sx={{padding: 0, marginBottom: 2}}
-        >
-          <SectionGroupCard sectionGroup={sectionGroup}/>
-        </ListItem>
-      );
-    }
-
-    return (
-      <>
-        <ListItem
-          key={course.id}
-          sx={{padding: 0, marginBottom: 2}}
-        >
-          <CourseCard course={course}/>
-        </ListItem>
-        {showSections ? sectionGroupCards : null}
-      </>
-    );
-  });
-}
+import sectionTypeFull from "../../../utils/sectionTypes";
+import Course from "../../../types/Course";
+import Schedule from "../../../types/Schedule";
 
 
 const Selector = () => {
+  const dispatch = useAppDispatch();
+
   const {
     data: courses,
     error: coursesError,
     isLoading: coursesAreLoading
   } = useGetCoursesQuery();
-
   const {
-    data: sections,
+    data: _sections,
     error: sectionsError,
     isLoading: sectionsAreLoading
   } = useGetSectionsQuery();
-  const sectionGroups = useAppSelector(selectSectionGroups);
+  const sectionGroups: SectionGroup[] = useAppSelector(selectSectionGroups);
+  const schedule = useAppSelector(selectSchedule);
+
+  const [rows, columns] = convertToDataGrid(
+    courses,
+    sectionGroups,
+    schedule,
+    dispatch
+  );
 
   return (
-    <>
-      {(coursesAreLoading || sectionsAreLoading) ?
-        <CircularProgress />
-        : null
-      }
+    <Paper
+      elevation={12}
+      sx={{
+        padding: 4,
+        width: "100%",
+        height: "auto",
+      }}
+    >
+      <Stack
+        sx={{
+          height: "100%"
+        }}
+        direction="column"
+        spacing={2}
+      >
+        <Typography variant="h5">Available Courses</Typography>
 
-      {(coursesError || sectionsError) ?
-        <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          Couldn't fetch courses from the server
-        </Alert>
-        : null
-      }
+        {(coursesAreLoading || sectionsAreLoading) ?
+          <CircularProgress />
+          : null
+        }
 
-      {(courses && sections) ?
-        <List
-          sx={{
-            position: "relative",
-            overflow: "auto",
-            maxHeight: "300px",
-            padding: "0 14px 0 1px",
-            "& ul": { padding: 0 },
-          }}
-        >
-          {convertCourses(courses, sectionGroups, false)}
-        </List>
-        : null
-      }
-    </>
+        {(coursesError || sectionsError) ?
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            Couldn't fetch courses from the server
+          </Alert>
+          : null
+        }
+
+        <Box sx={{ height: '100%', width: '100%' }}>
+          <DataGrid
+            initialState={{
+              pagination: {
+                pageSize: 10,
+              },
+            }}
+            rows={rows}
+            columns={columns}
+          />
+        </Box>
+      </Stack>
+    </Paper>
   );
 }
+
+
+const convertToDataGrid = (
+  courses: Course[] | undefined,
+  sectionGroups: SectionGroup[] | undefined,
+  schedule: Schedule,
+  dispatch: AppDispatch,
+): [any[], GridColDef[]] => {
+  const rows = courses
+    ? courses
+      .filter((course) => !schedule.courses.includes(course))
+      .map((course: Course) => ({
+        id: course.id,
+        course: course.abbr,
+        sectionTypes: sectionGroups && sectionGroups
+          .filter((sectionGroup) => sectionGroup.course === course.id)
+          .map((sectionGroup) => sectionGroup.type)
+          .map((sectionType) => sectionTypeFull[sectionType])
+          .reduce((previousValue, currentValue, currentIndex) => {
+            if (currentIndex) previousValue = previousValue.concat(", ");
+            return previousValue.concat(currentValue);
+          }, ""),
+        actions: course,
+      }))
+    : [];
+
+  const columns: GridColDef[] = [
+    { field: 'course', headerName: 'Course', flex: 1 },
+    { field: 'sectionTypes', headerName: 'Sections', flex: 4 },
+    {
+      field: 'actions',
+      headerName: '',
+      flex: 0,
+      renderCell: (params: GridRenderCellParams<Course>) =>
+        params.value
+          ? (
+            <ButtonGroup variant="contained">
+              <Button onClick={() => dispatch(chooseCourse(params.value!))}>
+                Add
+              </Button>
+            </ButtonGroup>
+          )
+          : (
+            <ButtonGroup variant="contained">
+              <Button disabled>
+                Add
+              </Button>
+            </ButtonGroup>
+          )
+    },
+  ];
+
+  return [rows, columns];
+}
+
 
 export default Selector;
