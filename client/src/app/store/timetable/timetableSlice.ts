@@ -31,11 +31,22 @@ export const timetableSlice = createSlice({
       let sections = action.payload;
       let sectionGroups: SectionGroup[] = [];
 
-      let groups = new Set();
-      sections.forEach(({type, course, instance}) => {
-        groups.add({type, course, instance});
+      let groups = new Set<any>();
+      sections.forEach(({ type, course, instance }) => {
+        groups.add({ type, course, instance });
       });
-      groups.forEach((group) => { console.log(group) });
+      groups.forEach(({ type, course, instance }) => {
+        sectionGroups.push({ type, course, instance, sections: [] })
+      });
+      sections.forEach((section) => {
+        let sectionGroupIndex = sectionGroups.findIndex((sectionGroup) =>
+          sectionGroup.course === section.course
+          && sectionGroup.type === section.type
+          && sectionGroup.instance === section.instance
+        );
+        sectionGroups[sectionGroupIndex].sections.push(section);
+      });
+
       state.sectionGroups = sectionGroups;
     },
     chooseCourse: (state, action: PayloadAction<Course>) => {
