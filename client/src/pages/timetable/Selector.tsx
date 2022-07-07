@@ -10,7 +10,7 @@ import SelectedCoursesList from
 
 const SelectorPage = () => {
   return (
-    <Page title="Courses List">
+    <Page title="Choose Courses">
       <Stack
         sx={{ height: "100%" }}
         direction="row"
@@ -25,7 +25,7 @@ const SelectorPage = () => {
           spacing={2}
         >
           <Typography variant="h6">
-            Chosen Courses
+            Chosen courses
           </Typography>
           <SelectedCoursesList />
         </Stack>
