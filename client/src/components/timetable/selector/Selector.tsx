@@ -124,24 +124,19 @@ const convertToDataGrid = (
     { field: 'sectionTypes', headerName: 'Sections', flex: 4 },
     {
       field: 'actions',
-      headerName: '',
+      headerName: 'Actions',
       flex: 0,
-      renderCell: (params: GridRenderCellParams<Course>) =>
-        params.value
-          ? (
-            <ButtonGroup variant="contained">
-              <Button onClick={() => dispatch(chooseCourse(params.value!))}>
-                Add
-              </Button>
-            </ButtonGroup>
-          )
-          : (
-            <ButtonGroup variant="contained">
-              <Button disabled>
-                Add
-              </Button>
-            </ButtonGroup>
-          )
+      minWidth: 150,
+      renderCell: (params: GridRenderCellParams<Course>) => (
+        <ButtonGroup variant="contained">
+          <Button onClick={() => dispatch(chooseCourse(params.value!))}>
+            Add
+          </Button>
+          <Button onClick={() => console.log("TODO")}>
+            View
+          </Button>
+        </ButtonGroup>
+      )
     },
   ];
 
