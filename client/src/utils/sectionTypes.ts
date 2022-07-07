@@ -1,4 +1,4 @@
-const sectionTypeFull: {[index: string]: string} = {
+const sectionTypeFull: { [index: string]: string } = {
     'L': 'Lecture',
     'T': 'Tutorial',
     'Lb': 'Lab',
@@ -10,7 +10,7 @@ const sectionTypeFull: {[index: string]: string} = {
     'R': 'Recitation',
     'IS': 'Independent Study',
     'P': 'Project',
-    'Wsh': 'Wsh',
+    'Wsh': 'Workshop',
     'CP': 'Capstone Project',
     'Int': 'Internship',
     'ThDef': 'Thesis Defence',

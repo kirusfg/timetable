@@ -15,7 +15,7 @@ section_dict = {
     'R': 'Recitation',
     'IS': 'Independent Study',
     'P': 'Project',
-    'Wsh': 'Wsh',
+    'Wsh': 'Workshop',
     'CP': 'Capstone Project',
     'Int': 'Internship',
     'ThDef': 'Thesis Defence',
