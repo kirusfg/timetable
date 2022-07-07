@@ -9,7 +9,12 @@ import Typography from "@mui/material/Typography";
 import {
   DataGrid,
   GridColDef,
-  GridRenderCellParams
+  GridRenderCellParams,
+  GridToolbarColumnsButton,
+  GridToolbarContainer,
+  GridToolbarDensitySelector,
+  GridToolbarFilterButton,
+  GridValueFormatterParams
 } from '@mui/x-data-grid';
 
 import { AppDispatch } from "../../../app/store";
@@ -63,7 +68,7 @@ const Selector = () => {
         direction="column"
         spacing={2}
       >
-        <Typography variant="h5">Available Courses</Typography>
+        <Typography variant="h5">Available courses</Typography>
 
         {(coursesAreLoading || sectionsAreLoading) ?
           <CircularProgress />
@@ -89,11 +94,38 @@ const Selector = () => {
             rows={rows}
             columns={columns}
             pagination
+            components={{ Toolbar: ToolbarWithoutExport }}
           />
         </Box>
       </Stack>
     </Paper>
   );
+}
+
+
+const ToolbarWithoutExport = () => (
+  <GridToolbarContainer>
+    <GridToolbarColumnsButton />
+    <GridToolbarFilterButton />
+    <GridToolbarDensitySelector />
+  </GridToolbarContainer>
+)
+
+
+const getCourseSectionTypes = (
+  course: Course,
+  sectionGroups: SectionGroup[] | undefined
+): string => {
+  if (!sectionGroups) return "";
+
+  return sectionGroups
+    .filter((sectionGroup) => sectionGroup.course === course.id)
+    .map((sectionGroup) => sectionGroup.type)
+    .map((sectionType) => sectionTypeFull[sectionType])
+    .reduce((previousValue, currentValue, currentIndex) => {
+      if (currentIndex) previousValue = previousValue.concat(", ");
+      return previousValue.concat(currentValue);
+    }, "");
 }
 
 
@@ -109,21 +141,29 @@ const convertToDataGrid = (
       .map((course: Course) => ({
         id: course.id,
         course: course.abbr,
-        sectionTypes: sectionGroups && sectionGroups
-          .filter((sectionGroup) => sectionGroup.course === course.id)
-          .map((sectionGroup) => sectionGroup.type)
-          .map((sectionType) => sectionTypeFull[sectionType])
-          .reduce((previousValue, currentValue, currentIndex) => {
-            if (currentIndex) previousValue = previousValue.concat(", ");
-            return previousValue.concat(currentValue);
-          }, ""),
+        department: course.department,
+        ects: course.credits_ects,
+        sectionTypes: getCourseSectionTypes(course, sectionGroups),
         actions: course,
       }))
     : [];
 
   const columns: GridColDef[] = [
-    { field: 'course', headerName: 'Course', flex: 1 },
-    { field: 'sectionTypes', headerName: 'Sections', flex: 4 },
+    { field: 'course', headerName: 'Course', flex: 0 },
+    {
+      field: 'ects',
+      headerName: 'ECTS',
+      flex: 0,
+      valueFormatter: (params: GridValueFormatterParams<number>) => {
+        if (params.value == null) {
+          return '';
+        }
+
+        return Math.trunc(params.value);
+      },
+    },
+    { field: 'department', headerName: 'Department', flex: 2 },
+    { field: 'sectionTypes', headerName: 'Sections', flex: 3 },
     {
       field: 'actions',
       headerName: 'Actions',
