@@ -129,6 +129,8 @@ const convertToDataGrid = (
       headerName: 'Actions',
       flex: 0,
       minWidth: 150,
+      sortable: false,
+      filterable: false,
       renderCell: (params: GridRenderCellParams<Course>) => (
         <ButtonGroup variant="contained">
           <Button onClick={() => dispatch(chooseCourse(params.value!))}>
