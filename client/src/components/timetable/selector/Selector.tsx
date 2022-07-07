@@ -68,7 +68,20 @@ const Selector = () => {
         direction="column"
         spacing={2}
       >
-        <Typography variant="h5">Available courses</Typography>
+        <Stack
+          sx={{
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+          direction="row"
+        >
+          <Typography variant="h4">
+            Available courses
+          </Typography>
+          <Typography variant="body2">
+            Use filters to search for specific courses
+          </Typography>
+        </Stack>
 
         {(coursesAreLoading || sectionsAreLoading) ?
           <CircularProgress />
