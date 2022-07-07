@@ -107,6 +107,7 @@ const Selector = () => {
             rows={rows}
             columns={columns}
             pagination
+            density="compact"
             components={{ Toolbar: ToolbarWithoutExport }}
           />
         </Box>
