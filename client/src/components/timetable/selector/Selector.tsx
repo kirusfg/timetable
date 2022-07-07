@@ -141,18 +141,28 @@ const convertToDataGrid = (
       .map((course: Course) => ({
         id: course.id,
         course: course.abbr,
+        title: course.title,
+        desc: course.desc,
         department: course.department,
-        ects: course.credits_ects,
+        credits_ects: course.credits_ects,
+        credits_us: course.credits_us,
         sectionTypes: getCourseSectionTypes(course, sectionGroups),
         actions: course,
       }))
     : [];
 
   const columns: GridColDef[] = [
-    { field: 'course', headerName: 'Course', flex: 0 },
     {
-      field: 'ects',
-      headerName: 'ECTS',
+      field: 'course',
+      headerName: 'Course',
+      description: 'Course',
+      hideable: false,
+      flex: 0
+    },
+    {
+      field: 'credits_ects',
+      headerName: 'Credits (ECTS)',
+      description: 'Credits (ECTS)',
       flex: 0,
       valueFormatter: (params: GridValueFormatterParams<number>) => {
         if (params.value == null) {
@@ -162,15 +172,50 @@ const convertToDataGrid = (
         return Math.trunc(params.value);
       },
     },
-    { field: 'department', headerName: 'Department', flex: 2 },
-    { field: 'sectionTypes', headerName: 'Sections', flex: 3 },
+    {
+      field: 'credits_us',
+      headerName: 'Credits (US)',
+      description: 'Credits (US)',
+      flex: 0,
+      hide: true,
+    },
+    {
+      field: 'title',
+      headerName: 'Title',
+      description: 'Title',
+      flex: 2,
+      hide: true
+    },
+    {
+      field: 'desc',
+      headerName: 'Description',
+      description: 'Description',
+      flex: 2,
+      hide: true
+    },
+    {
+      field: 'department',
+      headerName: 'Department',
+      description: 'Department',
+      flex: 3,
+      hide: true
+    },
+    {
+      field: 'sectionTypes',
+      headerName: 'Sections',
+      description: 'Sections',
+      hideable: false,
+      flex: 3
+    },
     {
       field: 'actions',
       headerName: 'Actions',
+      description: 'Actions',
       flex: 0,
       minWidth: 150,
       sortable: false,
       filterable: false,
+      hideable: false,
       renderCell: (params: GridRenderCellParams<Course>) => (
         <ButtonGroup variant="contained">
           <Button onClick={() => dispatch(chooseCourse(params.value!))}>
