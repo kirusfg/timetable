@@ -13,6 +13,30 @@ import SectionGroupCard from '../course/SectionGroup';
 import SectionGroup from "../../../types/SectionGroup";
 
 
+interface SelectedCoursesListProps {
+  showSectionGroups?: boolean;
+}
+
+
+const SelectedCoursesList: React.FC<SelectedCoursesListProps> = ({ showSectionGroups }) => {
+  const courses = useAppSelector(selectScheduleCourses);
+  const sectionGroups = useAppSelector(selectSectionGroups);
+
+  return (
+    <List
+      sx={{
+        overflowY: "auto",
+        overflowX: "visible",
+        padding: "0.5rem 1rem 0 0.25rem",
+        "& ul": { padding: 0 },
+      }}
+    >
+      {convertCourses(courses, sectionGroups, showSectionGroups)}
+    </List>
+  );
+}
+
+
 const convertCourses = (
   courses: Course[],
   sectionGroups: SectionGroup[],
@@ -50,26 +74,5 @@ const convertCourses = (
   });
 }
 
-interface SelectedCoursesListProps {
-  showSectionGroups?: boolean;
-}
-
-const SelectedCoursesList: React.FC<SelectedCoursesListProps> = ({ showSectionGroups }) => {
-  const courses = useAppSelector(selectScheduleCourses);
-  const sectionGroups = useAppSelector(selectSectionGroups);
-
-  return (
-    <List
-      sx={{
-        overflowY: "auto",
-        overflowX: "visible",
-        padding: "0.5rem 1rem 0 0.25rem",
-        "& ul": { padding: 0 },
-      }}
-    >
-      {convertCourses(courses, sectionGroups, showSectionGroups)}
-    </List>
-  );
-}
 
 export default SelectedCoursesList;
