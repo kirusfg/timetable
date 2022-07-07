@@ -82,11 +82,13 @@ const Selector = () => {
           <DataGrid
             initialState={{
               pagination: {
-                pageSize: 10,
+                pageSize: 20,
               },
             }}
+            rowsPerPageOptions={[10, 20, 50]}
             rows={rows}
             columns={columns}
+            pagination
           />
         </Box>
       </Stack>
