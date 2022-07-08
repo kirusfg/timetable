@@ -12,7 +12,7 @@ const SchedulePage = () => {
   return (
     <Page>
       <PageHeader title="Timetable">
-        <Steps steps={steps} activeStep={1} />
+        <Steps steps={steps} clickable />
       </PageHeader>
       <PageBody>
         <Table />

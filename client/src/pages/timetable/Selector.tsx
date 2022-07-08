@@ -17,7 +17,7 @@ const SelectorPage = () => {
   return (
     <Page>
       <PageHeader title="Timetable">
-        <Steps steps={steps} activeStep={0} />
+        <Steps steps={steps} clickable />
       </PageHeader>
       <PageBody>
         <Stack
