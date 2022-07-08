@@ -1,19 +1,22 @@
-import Stack from "@mui/material/Stack";
-
 import Page from "../page/Page";
+import PageBody from "../page/PageBody";
+import PageHeader from "../page/PageHeader";
+
+import { steps } from "./common";
+import Steps from "../../components/common/Steps";
+
 import Table from "../../components/timetable/table/Table";
 
 
 const TimetablePage = () => {
   return (
-    <Page title="Your Timetable">
-      <Stack
-        sx={{ height: "100%" }}
-        direction="row"
-        spacing={4}
-      >
+    <Page>
+      <PageHeader title="Timetable">
+        <Steps steps={steps} activeStep={1} />
+      </PageHeader>
+      <PageBody>
         <Table />
-      </Stack>
+      </PageBody>
     </Page >
   );
 }

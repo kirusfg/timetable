@@ -5,6 +5,9 @@ import Page from "../page/Page";
 import PageBody from "../page/PageBody";
 import PageHeader from "../page/PageHeader";
 
+import { steps } from "./common";
+import Steps from "../../components/common/Steps";
+
 import Selector from "../../components/timetable/selector/Selector";
 import SelectedCoursesList from
   "../../components/timetable/selector/SelectedCoursesList";
@@ -14,6 +17,7 @@ const SelectorPage = () => {
   return (
     <Page>
       <PageHeader title="Timetable">
+        <Steps steps={steps} activeStep={0} />
       </PageHeader>
       <PageBody>
         <Stack
