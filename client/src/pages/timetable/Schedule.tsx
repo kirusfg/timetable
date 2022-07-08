@@ -8,7 +8,7 @@ import Steps from "../../components/common/Steps";
 import Table from "../../components/timetable/table/Table";
 
 
-const TimetablePage = () => {
+const SchedulePage = () => {
   return (
     <Page>
       <PageHeader title="Timetable">
@@ -21,4 +21,4 @@ const TimetablePage = () => {
   );
 }
 
-export default TimetablePage;
+export default SchedulePage;
