@@ -17,7 +17,7 @@ import { store } from './app/store';
 import App from './App';
 import HomePage from './pages/Home';
 import SelectorPage from './pages/timetable/Selector';
-import TimetablePage from './pages/Timetable';
+import TimetablePage from './pages/timetable/Timetable';
 
 
 const container = document.getElementById('root')!;

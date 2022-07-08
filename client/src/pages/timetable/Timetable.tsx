@@ -1,7 +1,7 @@
 import Stack from "@mui/material/Stack";
 
-import Page from "./Page";
-import Table from "../components/timetable/table/Table";
+import Page from "../page/Page";
+import Table from "../../components/timetable/table/Table";
 
 
 const TimetablePage = () => {

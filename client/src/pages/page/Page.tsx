@@ -1,15 +1,13 @@
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 
 
 interface PageProps {
-  title: string;
   children?: React.ReactNode;
 }
 
 const Page = (props: PageProps) => {
-  const { title, children } = props;
+  const { children } = props;
 
   return (
     <>
@@ -20,20 +18,7 @@ const Page = (props: PageProps) => {
         maxHeight: "100%",
       }}>
         <Stack sx={{ height: "100vh", maxHeight: "100vh", display: "flex" }}>
-          <Box sx={{
-            bgcolor: "background.paper",
-            padding: 4,
-            flex: "0 1 auto",
-          }}>
-            <Typography variant="h3">{title}</Typography>
-          </Box>
-          <Box sx={{
-            padding: 4,
-            flex: "1 1 auto",
-            minHeight: 0,
-          }}>
-            {children}
-          </Box>
+          {children}
         </Stack>
       </Box>
     </>

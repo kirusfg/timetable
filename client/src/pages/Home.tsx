@@ -1,14 +1,21 @@
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
-import Page from "./Page";
+import Page from "./page/Page";
+import PageBody from "./page/PageBody";
+import PageHeader from "./page/PageHeader";
 
 
 const HomePage = () => {
   return (
-    <Page title="Home">
-      <p>Page body</p>
-    </Page>
+    <Page>
+      <PageHeader title="Home">
+        <Typography variant="body2">Header extra</Typography>
+      </PageHeader>
+      <PageBody>
+        <Typography variant="h4">Home page</Typography>
+        <Typography variant="body2">Body</Typography>
+      </PageBody>
+    </Page >
   );
 }
 
