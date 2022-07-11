@@ -37,8 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'django_apscheduler',
     'corsheaders',
 
@@ -115,6 +123,7 @@ CRON_CLASSES = [
 CORS_ALLOWED_ORIGINS = [
     'https://timetable.kirusfg.com',
     'https://kirusfg.com',
+    'https://b24e-5-251-189-161.eu.ngrok.io',
     'http://localhost:3000',
     'http://127.0.0.1:3000',
 ]
@@ -138,6 +147,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Django REST Auth
+SITE_ID = 1
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
