@@ -1,11 +1,11 @@
-import CircularProgress from '@mui/material/CircularProgress';
-import { Button, ButtonGroup } from "@mui/material";
-import Alert from '@mui/material/Alert';
-import Stack from "@mui/material/Stack";
-import AlertTitle from '@mui/material/AlertTitle';
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
+import CircularProgress from '@mui/material/CircularProgress'
+import { Button, ButtonGroup } from '@mui/material'
+import Alert from '@mui/material/Alert'
+import Stack from '@mui/material/Stack'
+import AlertTitle from '@mui/material/AlertTitle'
+import Box from '@mui/material/Box'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
 import {
   DataGrid,
   GridColDef,
@@ -14,87 +14,86 @@ import {
   GridToolbarContainer,
   GridToolbarDensitySelector,
   GridToolbarFilterButton,
-  GridValueFormatterParams
-} from '@mui/x-data-grid';
+  GridValueFormatterParams,
+} from '@mui/x-data-grid'
 
-import { AppDispatch } from "../../../app/store";
-import { useGetCoursesQuery, useGetSectionsQuery } from
-  '../../../app/store/api/apiSlice';
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { chooseCourse, selectSchedule, selectSectionGroups } from "../../../app/store/timetable/timetableSlice";
+import { AppDispatch } from '../../../app/store'
+import {
+  useGetCoursesQuery,
+  useGetSectionsQuery,
+} from '../../../app/store/api/apiSlice'
+import { useAppDispatch, useAppSelector } from '../../../app/hooks'
+import {
+  chooseCourse,
+  selectSchedule,
+  selectSectionGroups,
+} from '../../../app/store/timetable/timetableSlice'
 
-import SectionGroup from "../../../types/SectionGroup";
-import sectionTypeFull from "../../../utils/sectionTypes";
-import Course from "../../../types/Course";
-import Schedule from "../../../types/Schedule";
-
+import SectionGroup from '../../../types/SectionGroup'
+import sectionTypeFull from '../../../utils/sectionTypes'
+import Course from '../../../types/Course'
+import Schedule from '../../../types/Schedule'
 
 const Selector = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   const {
     data: courses,
     error: coursesError,
-    isLoading: coursesAreLoading
-  } = useGetCoursesQuery();
+    isLoading: coursesAreLoading,
+  } = useGetCoursesQuery()
   const {
     data: _sections,
     error: sectionsError,
-    isLoading: sectionsAreLoading
-  } = useGetSectionsQuery();
-  const sectionGroups: SectionGroup[] = useAppSelector(selectSectionGroups);
-  const schedule = useAppSelector(selectSchedule);
+    isLoading: sectionsAreLoading,
+  } = useGetSectionsQuery()
+  const sectionGroups: SectionGroup[] = useAppSelector(selectSectionGroups)
+  const schedule = useAppSelector(selectSchedule)
 
   const [rows, columns] = convertToDataGrid(
     courses,
     sectionGroups,
     schedule,
     dispatch
-  );
+  )
 
   return (
     <Paper
       elevation={12}
       sx={{
         padding: 4,
-        width: "100%",
-        height: "auto",
+        width: '100%',
+        height: 'auto',
       }}
     >
       <Stack
         sx={{
-          height: "100%"
+          height: '100%',
         }}
-        direction="column"
+        direction='column'
         spacing={2}
       >
         <Stack
           sx={{
-            alignItems: "center",
-            justifyContent: "space-between",
+            alignItems: 'center',
+            justifyContent: 'space-between',
           }}
-          direction="row"
+          direction='row'
         >
-          <Typography variant="h4">
-            Available courses
-          </Typography>
-          <Typography variant="body2">
+          <Typography variant='h4'>Available courses</Typography>
+          <Typography variant='body2'>
             Use filters to search for specific courses
           </Typography>
         </Stack>
 
-        {(coursesAreLoading || sectionsAreLoading) ?
-          <CircularProgress />
-          : null
-        }
+        {coursesAreLoading || sectionsAreLoading ? <CircularProgress /> : null}
 
-        {(coursesError || sectionsError) ?
-          <Alert severity="error">
+        {coursesError || sectionsError ? (
+          <Alert severity='error'>
             <AlertTitle>Error</AlertTitle>
             Couldn't fetch courses from the server
           </Alert>
-          : null
-        }
+        ) : null}
 
         <Box sx={{ height: '100%', width: '100%' }}>
           <DataGrid
@@ -107,15 +106,14 @@ const Selector = () => {
             rows={rows}
             columns={columns}
             pagination
-            density="compact"
+            density='compact'
             components={{ Toolbar: ToolbarWithoutExport }}
           />
         </Box>
       </Stack>
     </Paper>
-  );
+  )
 }
-
 
 const ToolbarWithoutExport = () => (
   <GridToolbarContainer>
@@ -125,45 +123,43 @@ const ToolbarWithoutExport = () => (
   </GridToolbarContainer>
 )
 
-
 const getCourseSectionTypes = (
   course: Course,
   sectionGroups: SectionGroup[] | undefined
 ): string => {
-  if (!sectionGroups) return "";
+  if (!sectionGroups) return ''
 
   return sectionGroups
     .filter((sectionGroup) => sectionGroup.course === course.id)
     .map((sectionGroup) => sectionGroup.type)
     .map((sectionType) => sectionTypeFull[sectionType])
     .reduce((previousValue, currentValue, currentIndex) => {
-      if (currentIndex) previousValue = previousValue.concat(", ");
-      return previousValue.concat(currentValue);
-    }, "");
+      if (currentIndex) previousValue = previousValue.concat(', ')
+      return previousValue.concat(currentValue)
+    }, '')
 }
-
 
 const convertToDataGrid = (
   courses: Course[] | undefined,
   sectionGroups: SectionGroup[] | undefined,
   schedule: Schedule,
-  dispatch: AppDispatch,
+  dispatch: AppDispatch
 ): [any[], GridColDef[]] => {
   const rows = courses
     ? courses
-      .filter((course) => !schedule.courses.includes(course))
-      .map((course: Course) => ({
-        id: course.id,
-        course: course.abbr,
-        title: course.title,
-        desc: course.desc,
-        department: course.department,
-        credits_ects: course.credits_ects,
-        credits_us: course.credits_us,
-        sectionTypes: getCourseSectionTypes(course, sectionGroups),
-        actions: course,
-      }))
-    : [];
+        .filter((course) => !schedule.courses.includes(course))
+        .map((course: Course) => ({
+          id: course.id,
+          course: course.abbr,
+          title: course.title,
+          desc: course.desc,
+          department: course.department,
+          credits_ects: course.credits_ects,
+          credits_us: course.credits_us,
+          sectionTypes: getCourseSectionTypes(course, sectionGroups),
+          actions: course,
+        }))
+    : []
 
   const columns: GridColDef[] = [
     {
@@ -171,7 +167,7 @@ const convertToDataGrid = (
       headerName: 'Course',
       description: 'Course',
       hideable: false,
-      flex: 0
+      flex: 0,
     },
     {
       field: 'credits_ects',
@@ -180,10 +176,10 @@ const convertToDataGrid = (
       flex: 0,
       valueFormatter: (params: GridValueFormatterParams<number>) => {
         if (params.value == null) {
-          return '';
+          return ''
         }
 
-        return Math.trunc(params.value);
+        return Math.trunc(params.value)
       },
     },
     {
@@ -198,28 +194,28 @@ const convertToDataGrid = (
       headerName: 'Title',
       description: 'Title',
       flex: 2,
-      hide: true
+      hide: true,
     },
     {
       field: 'desc',
       headerName: 'Description',
       description: 'Description',
       flex: 2,
-      hide: true
+      hide: true,
     },
     {
       field: 'department',
       headerName: 'Department',
       description: 'Department',
       flex: 3,
-      hide: true
+      hide: true,
     },
     {
       field: 'sectionTypes',
       headerName: 'Sections',
       description: 'Sections',
       hideable: false,
-      flex: 3
+      flex: 3,
     },
     {
       field: 'actions',
@@ -231,20 +227,17 @@ const convertToDataGrid = (
       filterable: false,
       hideable: false,
       renderCell: (params: GridRenderCellParams<Course>) => (
-        <ButtonGroup variant="contained">
+        <ButtonGroup variant='contained'>
           <Button onClick={() => dispatch(chooseCourse(params.value!))}>
             Add
           </Button>
-          <Button onClick={() => console.log("TODO")}>
-            View
-          </Button>
+          <Button onClick={() => console.log('TODO')}>View</Button>
         </ButtonGroup>
-      )
+      ),
     },
-  ];
+  ]
 
-  return [rows, columns];
+  return [rows, columns]
 }
 
-
-export default Selector;
+export default Selector

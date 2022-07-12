@@ -1,24 +1,23 @@
-import Page from "../page/Page";
-import PageBody from "../page/PageBody";
-import PageHeader from "../page/PageHeader";
+import Page from '../page/Page'
+import PageBody from '../page/PageBody'
+import PageHeader from '../page/PageHeader'
 
-import { steps } from "./common";
-import Steps from "../../components/common/Steps";
+import { steps } from './common'
+import Steps from '../../components/common/Steps'
 
-import Table from "../../components/timetable/table/Table";
-
+import Table from '../../components/timetable/table/Table'
 
 const SchedulePage = () => {
   return (
     <Page>
-      <PageHeader title="Timetable">
+      <PageHeader title='Timetable'>
         <Steps steps={steps} clickable />
       </PageHeader>
       <PageBody>
         <Table />
       </PageBody>
-    </Page >
-  );
+    </Page>
+  )
 }
 
-export default SchedulePage;
+export default SchedulePage

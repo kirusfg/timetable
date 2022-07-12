@@ -1,9 +1,9 @@
-import Course from "./Course";
-import Section from "./Section";
+import Course from './Course'
+import Section from './Section'
 
 type Schedule = {
-  courses: Course[];
-  sections: Section[];
-};
+  courses: Course[]
+  sections: Section[]
+}
 
-export default Schedule;
+export default Schedule
