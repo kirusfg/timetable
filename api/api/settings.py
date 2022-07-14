@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+
     'django_apscheduler',
+
     'corsheaders',
 
     'apps.users',
@@ -125,9 +127,7 @@ CRON_CLASSES = [
 CORS_ALLOWED_ORIGINS = [
     'https://timetable.kirusfg.com',
     'https://kirusfg.com',
-    'https://b24e-5-251-189-161.eu.ngrok.io',
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
+    'http://localhost:5173',
 ]
 
 
