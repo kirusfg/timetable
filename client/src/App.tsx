@@ -20,26 +20,26 @@ const App = () => {
             title='Home'
             accent='primary.main'
             icon={<HomeIcon fontSize='small' />}
-            page='/'
+            href='/'
           />
           <NavbarItem
             title='Timetable'
             accent='primary.main'
             icon={<TimetableIcon fontSize='small' />}
-            page='/timetable/courses'
+            href='/timetable/courses'
             isComplex
           />
           <NavbarItem
             title='Students'
             accent='primary.main'
             icon={<UsersIcon fontSize='small' />}
-            page='/users'
+            href='/users'
           />
           <NavbarItem
             title='Login'
             accent='primary.main'
             icon={<LoginIcon fontSize='small' />}
-            page='/login'
+            href='/auth/login'
             last
           />
         </Navbar>

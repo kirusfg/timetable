@@ -4,7 +4,7 @@ import { useNavigate, useResolvedPath, useMatch } from 'react-router-dom'
 import ListItemButton from '@mui/material/ListItemButton'
 
 interface NavbarItemProps {
-  page: string
+  href: string
   title: string
   accent: string
   icon: React.ReactElement
@@ -13,18 +13,23 @@ interface NavbarItemProps {
 }
 
 const NavbarItem: React.FC<NavbarItemProps> = (props) => {
-  let { page, accent, icon, isComplex, last } = props
+  let { href, accent, icon, isComplex, last } = props
 
   let navigate = useNavigate()
-  let resolved = useResolvedPath(page)
+  let resolved = useResolvedPath(href)
   let selected = useMatch({ path: resolved.pathname, end: !isComplex })
 
   const handleNavigation = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    page: string
+    href: string
   ) => {
     event.preventDefault()
-    navigate(page, { replace: true })
+
+    if (href[0] === '/') {
+      navigate(href, { replace: true })
+    } else {
+      window.location.replace(href)
+    }
   }
 
   return (
@@ -44,7 +49,7 @@ const NavbarItem: React.FC<NavbarItemProps> = (props) => {
           color: 'common.white',
         },
       }}
-      onClick={(event) => handleNavigation(event, page)}
+      onClick={(event) => handleNavigation(event, href)}
     >
       {icon}
     </ListItemButton>
