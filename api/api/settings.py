@@ -112,6 +112,9 @@ DATABASES = {
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': '10',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ),
 }
 
 
@@ -150,6 +153,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Django REST Auth
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+REST_USE_JWT = True
+JWT_AUTH_COOKIE = 'timetable-auth'
 SITE_ID = 1
 
 # Internationalization

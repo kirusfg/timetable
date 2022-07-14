@@ -17,9 +17,10 @@ from django.urls import path, include
 from django.contrib import admin
 from rest_framework import routers
 
+from dj_rest_auth.registration.views import VerifyEmailView
+
 from apps.users import views as users_views
 from apps.timetable import views as timetable_views
-from apps.auth import views as auth_views
 
 router = routers.DefaultRouter()
 router.register(r'students', users_views.StudentViewSet)
@@ -29,11 +30,7 @@ router.register(r'sections', timetable_views.SectionViewSet)
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),
-    path(
-        'api/v1/auth/',
-        auth_views.GoogleLogin.as_view(),
-        name='google_login'
-    ),
+    path('api/v1/auth/', include('dj_rest_auth.urls')),
     path('api/v1/auth/registration/',
          include('dj_rest_auth.registration.urls')),
     path('admin/', admin.site.urls),
