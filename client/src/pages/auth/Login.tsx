@@ -22,17 +22,19 @@ import PageBody from '../page/PageBody'
 import PageHeader from '../page/PageHeader'
 
 import { useLoginQuery } from '../../app/store/api/apiSlice'
-import type { Login } from '../../app/store/auth/authSlice'
+import { Login, setUser } from '../../app/store/auth/authSlice'
+import { useAppDispatch } from '../../app/hooks'
 
 const LoginPage = () => {
+  let navigate = useNavigate()
+  let dispatch = useAppDispatch()
+
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
   const [firstLoad, setFirstLoad] = useState<boolean>(true)
   const [login, setLogin] = useState<Login>({ username, password })
   const { data, error, isLoading } = useLoginQuery(login, { skip: firstLoad })
-
-  let navigate = useNavigate()
 
   const inputHandler =
     (setState: Dispatch<SetStateAction<string>>) =>
@@ -47,10 +49,12 @@ const LoginPage = () => {
   }
 
   useEffect(() => {
-    if (data?.user?.username === username)
+    if (data?.user?.username === username) {
+      dispatch(setUser(data))
       setTimeout(() => {
         navigate('../../', { replace: true })
       }, 1000)
+    }
   }, [data, username])
 
   return (
