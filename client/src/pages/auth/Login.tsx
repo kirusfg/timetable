@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
@@ -22,12 +22,14 @@ import PageBody from '../page/PageBody'
 import PageHeader from '../page/PageHeader'
 
 import { useLoginQuery } from '../../app/store/api/apiSlice'
-import { Login, setUser } from '../../app/store/auth/authSlice'
-import { useAppDispatch } from '../../app/hooks'
+import { Login, selectUser, setUser } from '../../app/store/auth/authSlice'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 
 const LoginPage = () => {
   let navigate = useNavigate()
   let dispatch = useAppDispatch()
+
+  const user = useAppSelector(selectUser)
 
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -38,15 +40,20 @@ const LoginPage = () => {
 
   const inputHandler =
     (setState: Dispatch<SetStateAction<string>>) =>
-      (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        event.preventDefault()
-        setState(event.target.value)
-      }
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      event.preventDefault()
+      setState(event.target.value)
+    }
 
   const loginHandler = () => {
     setLogin({ username, password })
     setFirstLoad(false)
   }
+
+  useEffect(() => {
+    if (user) 
+      navigate('../../', { replace: true })
+  }, [])
 
   useEffect(() => {
     if (data?.user?.username === username) {
