@@ -157,6 +157,9 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'timetable-auth'
 SITE_ID = 1
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'apps.auth.serializers.UserSerializer',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
