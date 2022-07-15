@@ -8,9 +8,10 @@ import { Provider as ReduxProvider } from 'react-redux'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import './index.css'
-import { store } from './app/store'
+import { persistor, store } from './app/store'
+import { PersistGate } from 'redux-persist/integration/react'
 
+import './index.css'
 import App from './App'
 import HomePage from './pages/Home'
 import SelectorPage from './pages/timetable/Selector'
@@ -24,20 +25,22 @@ root.render(
   <React.StrictMode>
     <DndProvider backend={HTML5Backend}>
       <ReduxProvider store={store}>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<App />}>
-              <Route index element={<HomePage />} />
-              <Route path='timetable'>
-                <Route path='courses' element={<SelectorPage />} />
-                <Route path='schedule' element={<SchedulePage />} />
+        <PersistGate persistor={persistor}>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<App />}>
+                <Route index element={<HomePage />} />
+                <Route path='timetable'>
+                  <Route path='courses' element={<SelectorPage />} />
+                  <Route path='schedule' element={<SchedulePage />} />
+                </Route>
+                <Route path='auth'>
+                  <Route path='login' element={<LoginPage />} />
+                </Route>
               </Route>
-              <Route path='auth'>
-                <Route path='login' element={<LoginPage />} />
-              </Route>
-            </Route>
-          </Routes>
-        </BrowserRouter>
+            </Routes>
+          </BrowserRouter>
+        </PersistGate>
       </ReduxProvider>
     </DndProvider>
   </React.StrictMode>
