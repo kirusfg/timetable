@@ -5,6 +5,7 @@ import Section from '../../../types/Section'
 import User from '../../../types/User'
 import { groupSections } from '../timetable/timetableSlice'
 import type { Login } from '../auth/authSlice'
+import type { RootState } from '..'
 
 export type ApiResponse<T> = {
   count: number
@@ -14,7 +15,16 @@ export type ApiResponse<T> = {
 }
 
 export const apiSlice = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000/api/v1/' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'http://localhost:8000/api/v1/',
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as RootState).auth.access_token
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`)
+      }
+      return headers
+    },
+  }),
   endpoints: (builder) => ({
     getCourses: builder.query<Course[], void>({
       query: () => 'courses/',
