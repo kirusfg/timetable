@@ -21,8 +21,8 @@ import Page from '../page/Page'
 import PageBody from '../page/PageBody'
 import PageHeader from '../page/PageHeader'
 
-import { Login } from '../../app/store/api/auth'
 import { useLoginQuery } from '../../app/store/api/apiSlice'
+import type { Login } from '../../app/store/auth/authSlice'
 
 const LoginPage = () => {
   const [username, setUsername] = useState<string>('')
@@ -36,10 +36,10 @@ const LoginPage = () => {
 
   const inputHandler =
     (setState: Dispatch<SetStateAction<string>>) =>
-    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      event.preventDefault()
-      setState(event.target.value)
-    }
+      (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        event.preventDefault()
+        setState(event.target.value)
+      }
 
   const loginHandler = () => {
     setLogin({ username, password })

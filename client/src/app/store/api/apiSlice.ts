@@ -4,7 +4,7 @@ import Course from '../../../types/Course'
 import Section from '../../../types/Section'
 import User from '../../../types/User'
 import { groupSections } from '../timetable/timetableSlice'
-import { Login } from './auth'
+import type { Login } from '../auth/authSlice'
 
 export type ApiResponse<T> = {
   count: number
