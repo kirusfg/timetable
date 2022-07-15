@@ -1,4 +1,11 @@
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
@@ -20,9 +27,12 @@ import { useLoginQuery } from '../../app/store/api/apiSlice'
 const LoginPage = () => {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+
   const [firstLoad, setFirstLoad] = useState<boolean>(true)
   const [login, setLogin] = useState<Login>({ username, password })
   const { data, error, isLoading } = useLoginQuery(login, { skip: firstLoad })
+
+  let navigate = useNavigate()
 
   const inputHandler =
     (setState: Dispatch<SetStateAction<string>>) =>
@@ -35,6 +45,13 @@ const LoginPage = () => {
     setLogin({ username, password })
     setFirstLoad(false)
   }
+
+  useEffect(() => {
+    if (data?.user?.username === username)
+      setTimeout(() => {
+        navigate('../../', { replace: true })
+      }, 1000)
+  }, [data, username])
 
   return (
     <Page>
@@ -90,10 +107,10 @@ const LoginPage = () => {
                   onChange={inputHandler(setPassword)}
                 />
                 <Stack sx={{ height: '100%' }} direction='row' spacing={2}>
-                  {isLoading ? <CircularProgress /> : null}
                   <Button variant='contained' onClick={loginHandler}>
                     Login
                   </Button>
+                  {isLoading ? <CircularProgress /> : null}
                 </Stack>
               </FormControl>
             </Stack>
