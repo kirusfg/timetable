@@ -1,36 +1,19 @@
 import React from 'react'
-import { useNavigate, useResolvedPath, useMatch } from 'react-router-dom'
 
 import ListItemButton from '@mui/material/ListItemButton'
 
 interface NavbarItemProps {
-  href: string
   title: string
   accent: string
   icon: React.ReactElement
   isComplex?: boolean
+  isSelected?: boolean
   last?: boolean
+  clickHandler: Function
 }
 
 const NavbarItem: React.FC<NavbarItemProps> = (props) => {
-  let { href, accent, icon, isComplex, last } = props
-
-  let navigate = useNavigate()
-  let resolved = useResolvedPath(href)
-  let selected = useMatch({ path: resolved.pathname, end: !isComplex })
-
-  const handleNavigation = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    href: string
-  ) => {
-    event.preventDefault()
-
-    if (href[0] === '/') {
-      navigate(href, { replace: true })
-    } else {
-      window.location.replace(href)
-    }
-  }
+  let { accent, icon, isComplex, isSelected, last, clickHandler } = props
 
   return (
     <ListItemButton
@@ -42,14 +25,14 @@ const NavbarItem: React.FC<NavbarItemProps> = (props) => {
         marginTop: last ? 'auto' : '0',
         borderRadius: '35%',
         fontSize: 6,
-        bgcolor: selected ? accent : undefined,
-        color: selected ? 'common.white' : undefined,
+        bgcolor: isSelected ? accent : undefined,
+        color: isSelected ? 'common.white' : undefined,
         '&:hover': {
           bgcolor: accent,
           color: 'common.white',
         },
       }}
-      onClick={(event) => handleNavigation(event, href)}
+      onClick={(event) => clickHandler(event)}
     >
       {icon}
     </ListItemButton>
