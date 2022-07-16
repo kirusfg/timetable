@@ -19,7 +19,7 @@ import {
 import Navbar from './components/navbar/Navbar'
 import NavbarItem from './components/navbar/NavbarItem'
 
-import { useAppDispatch, useAppSelector } from './app/hooks'
+import { useAppSelector } from './app/hooks'
 import { selectUser } from './app/store/auth/authSlice'
 import { useLogoutMutation } from './app/store/api/apiSlice'
 import Snackbar from '@mui/material/Snackbar'
@@ -27,19 +27,17 @@ import Alert from '@mui/material/Alert'
 
 const App = () => {
   let navigate = useNavigate()
-  let dispatch = useAppDispatch()
   let user = useAppSelector(selectUser)
 
-  const [open, setOpen] = useState(false)
+  const [logoutMessageIsOpen, setLogoutMessageIsOpen] = useState(false)
   const [logout] = useLogoutMutation()
 
   const handleNavigation =
-    (route: string, routeIsProtected: boolean) =>
+    (route: string) =>
     (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       event.preventDefault()
 
-      if (routeIsProtected && !user) navigate('/auth/login', { replace: true })
-      else navigate(route, { replace: true })
+      navigate(route, { replace: true })
     }
 
   const handleLoginLogout = (
@@ -48,26 +46,11 @@ const App = () => {
     event.preventDefault()
 
     if (user) {
-      try {
-        logout()
-        setOpen(true)
-      } catch (e) {
-        console.error(e)
-      }
+      logout()
+      setLogoutMessageIsOpen(true)
     } else {
       navigate('/auth/login', { replace: true })
     }
-  }
-
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === 'clickaway') {
-      return
-    }
-
-    setOpen(false)
   }
 
   const isSelected = (path: string, isComplex: boolean): boolean => {
@@ -79,11 +62,21 @@ const App = () => {
 
   return (
     <>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
+      <Snackbar
+        open={logoutMessageIsOpen}
+        autoHideDuration={3000}
+        onClose={() => setLogoutMessageIsOpen(false)}
+      >
+        <Alert
+          onClose={() => setLogoutMessageIsOpen(false)}
+          severity='success'
+          variant='filled'
+          sx={{ width: '100%' }}
+        >
           This is a success message!
         </Alert>
       </Snackbar>
+
       <Stack direction='row'>
         <Navbar>
           <NavbarItem
@@ -91,21 +84,21 @@ const App = () => {
             accent='primary.main'
             icon={<HomeIcon fontSize='small' />}
             isSelected={isSelected('/', false)}
-            clickHandler={handleNavigation('/', false)}
+            clickHandler={handleNavigation('/')}
           />
           <NavbarItem
             title='Timetable'
             accent='primary.main'
             icon={<TimetableIcon fontSize='small' />}
             isSelected={isSelected('/timetable', true)}
-            clickHandler={handleNavigation('/timetable/courses', true)}
+            clickHandler={handleNavigation('/timetable/courses')}
           />
           <NavbarItem
             title='Students'
             accent='primary.main'
             icon={<UsersIcon fontSize='small' />}
             isSelected={isSelected('/users', false)}
-            clickHandler={handleNavigation('/users', true)}
+            clickHandler={handleNavigation('/users')}
           />
           <NavbarItem
             title='Login'

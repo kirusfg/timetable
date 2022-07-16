@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
@@ -27,6 +27,8 @@ import { useAppSelector } from '../../app/hooks'
 
 const LoginPage = () => {
   let navigate = useNavigate()
+  let location = useLocation()
+  const from = location.state?.from?.pathname || '/'
 
   const user = useAppSelector(selectUser)
 
@@ -39,10 +41,10 @@ const LoginPage = () => {
 
   const inputHandler =
     (setState: Dispatch<SetStateAction<string>>) =>
-      (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        event.preventDefault()
-        setState(event.target.value)
-      }
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      event.preventDefault()
+      setState(event.target.value)
+    }
 
   const loginHandler = () => {
     setLogin({ username, password })
@@ -50,14 +52,15 @@ const LoginPage = () => {
   }
 
   useEffect(() => {
-    if (user)
-      navigate('../../', { replace: true })
+    // Do not allow access to this page if the user is already logged in
+    if (user) navigate(from, { replace: true })
   }, [])
 
   useEffect(() => {
-    if (data?.user?.username === username) {
+    // Successful login
+    if (data?.user?.username === username.trim()) {
       setTimeout(() => {
-        navigate('../../', { replace: true })
+        navigate(from, { replace: true })
       }, 1000)
     }
   }, [data, username])

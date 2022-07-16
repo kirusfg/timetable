@@ -17,6 +17,7 @@ import HomePage from './pages/Home'
 import SelectorPage from './pages/timetable/Selector'
 import SchedulePage from './pages/timetable/Schedule'
 import LoginPage from './pages/auth/Login'
+import ProtectedRoute from './components/common/ProtectedRoute'
 
 const container = document.getElementById('root')!
 const root = createRoot(container)
@@ -31,8 +32,22 @@ root.render(
               <Route path='/' element={<App />}>
                 <Route index element={<HomePage />} />
                 <Route path='timetable'>
-                  <Route path='courses' element={<SelectorPage />} />
-                  <Route path='schedule' element={<SchedulePage />} />
+                  <Route
+                    path='courses'
+                    element={
+                      <ProtectedRoute>
+                        <SelectorPage />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path='schedule'
+                    element={
+                      <ProtectedRoute>
+                        <SchedulePage />
+                      </ProtectedRoute>
+                    }
+                  />
                 </Route>
                 <Route path='auth'>
                   <Route path='login' element={<LoginPage />} />
