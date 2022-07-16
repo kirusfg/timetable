@@ -89,7 +89,7 @@ const Selector = () => {
         {coursesAreLoading || sectionsAreLoading ? <CircularProgress /> : null}
 
         {coursesError || sectionsError ? (
-          <Alert severity='error'>
+          <Alert severity='error' variant='filled'>
             <AlertTitle>Error</AlertTitle>
             Couldn't fetch courses from the server
           </Alert>

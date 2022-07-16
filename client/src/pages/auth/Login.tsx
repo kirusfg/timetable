@@ -85,14 +85,14 @@ const LoginPage = () => {
               <Typography variant='h4'>Login</Typography>
 
               {(username || password) && error ? (
-                <Alert severity='error'>
+                <Alert severity='error' variant='filled'>
                   <AlertTitle>Error</AlertTitle>
                   The login/password pair is incorrect
                 </Alert>
               ) : null}
 
               {data && (
-                <Alert severity='success'>
+                <Alert severity='success' variant='filled'>
                   <AlertTitle>Success</AlertTitle>
                   Logged in as {data.user?.username}. Redirecting...
                 </Alert>
