@@ -88,13 +88,11 @@ const LoginPage = () => {
                 </Alert>
               ) : null}
 
-              {data ? (
+              {data && (
                 <Alert severity='success'>
                   <AlertTitle>Success</AlertTitle>
                   Logged in as {data.user?.username}. Redirecting...
                 </Alert>
-              ) : (
-                <p>Not logged in</p>
               )}
 
               <FormControl>
