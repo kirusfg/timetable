@@ -23,15 +23,20 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<AuthState>) => {
+    loginUser: (state, action: PayloadAction<AuthState>) => {
       state.access_token = action.payload.access_token
       state.refresh_token = action.payload.refresh_token
       state.user = action.payload.user
     },
+    logoutUser: (state) => {
+      state.access_token = null
+      state.refresh_token = null
+      state.user = null
+    },
   },
 })
 
-export const { setUser } = authSlice.actions
+export const { loginUser, logoutUser } = authSlice.actions
 
 export const selectUser = (state: RootState): User | null =>
   state.auth.user

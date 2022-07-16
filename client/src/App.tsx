@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import {
   Outlet,
   useNavigate,
@@ -18,35 +20,54 @@ import Navbar from './components/navbar/Navbar'
 import NavbarItem from './components/navbar/NavbarItem'
 
 import { useAppDispatch, useAppSelector } from './app/hooks'
-import { selectUser, setUser } from './app/store/auth/authSlice'
+import { selectUser } from './app/store/auth/authSlice'
+import { useLogoutMutation } from './app/store/api/apiSlice'
+import Snackbar from '@mui/material/Snackbar'
+import Alert from '@mui/material/Alert'
 
 const App = () => {
   let navigate = useNavigate()
   let dispatch = useAppDispatch()
   let user = useAppSelector(selectUser)
 
+  const [open, setOpen] = useState(false)
+  const [logout] = useLogoutMutation()
+
   const handleNavigation =
-    (href: string, needsLogin: boolean) =>
-      (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        event.preventDefault()
+    (route: string, routeIsProtected: boolean) =>
+    (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      event.preventDefault()
 
-        if (needsLogin && !user) navigate('/auth/login', { replace: true })
-        else navigate(href, { replace: true })
-      }
+      if (routeIsProtected && !user) navigate('/auth/login', { replace: true })
+      else navigate(route, { replace: true })
+    }
 
-  const handleLogin = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleLoginLogout = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     event.preventDefault()
+
     if (user) {
-      dispatch(
-        setUser({
-          access_token: null,
-          refresh_token: null,
-          user: null,
-        })
-      )
+      try {
+        logout()
+        setOpen(true)
+      } catch (e) {
+        console.error(e)
+      }
     } else {
       navigate('/auth/login', { replace: true })
     }
+  }
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return
+    }
+
+    setOpen(false)
   }
 
   const isSelected = (path: string, isComplex: boolean): boolean => {
@@ -58,6 +79,11 @@ const App = () => {
 
   return (
     <>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
+          This is a success message!
+        </Alert>
+      </Snackbar>
       <Stack direction='row'>
         <Navbar>
           <NavbarItem
@@ -93,7 +119,7 @@ const App = () => {
               )
             }
             isSelected={isSelected('/auth/login', false)}
-            clickHandler={handleLogin}
+            clickHandler={handleLoginLogout}
             last
           />
         </Navbar>
