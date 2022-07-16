@@ -99,7 +99,6 @@ const App = () => {
             icon={<TimetableIcon fontSize='small' />}
             isSelected={isSelected('/timetable', true)}
             clickHandler={handleNavigation('/timetable/courses', true)}
-            isComplex
           />
           <NavbarItem
             title='Students'

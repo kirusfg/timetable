@@ -6,14 +6,13 @@ interface NavbarItemProps {
   title: string
   accent: string
   icon: React.ReactElement
-  isComplex?: boolean
   isSelected?: boolean
   last?: boolean
   clickHandler: Function
 }
 
 const NavbarItem: React.FC<NavbarItemProps> = (props) => {
-  let { accent, icon, isComplex, isSelected, last, clickHandler } = props
+  let { accent, icon, isSelected, last, clickHandler } = props
 
   return (
     <ListItemButton
