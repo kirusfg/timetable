@@ -12,14 +12,11 @@ const persistConfig = {
   storage,
 }
 
-const persistedReducer = persistCombineReducers(
-  persistConfig,
-  {
-    timetable: timetableSlice.reducer,
-    auth: authSlice.reducer,
-    [apiSlice.reducerPath]: apiSlice.reducer,
-  },
-)
+const persistedReducer = persistCombineReducers(persistConfig, {
+  timetable: timetableSlice.reducer,
+  auth: authSlice.reducer,
+  [apiSlice.reducerPath]: apiSlice.reducer,
+})
 
 export const store = configureStore({
   reducer: persistedReducer,

@@ -38,5 +38,4 @@ export const authSlice = createSlice({
 
 export const { loginUser, logoutUser } = authSlice.actions
 
-export const selectUser = (state: RootState): User | null =>
-  state.auth.user
+export const selectUser = (state: RootState): User | null => state.auth.user
