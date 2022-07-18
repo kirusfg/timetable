@@ -10,6 +10,7 @@ import { authSlice } from './auth/authSlice'
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: [apiSlice.reducerPath],
 }
 
 const persistedReducer = persistCombineReducers(persistConfig, {
