@@ -1,15 +1,17 @@
 from rest_framework import viewsets, permissions
+from rest_framework.response import Response
 
 from .serializers import (
     CourseSerializer,
     SemesterSerializer,
     SectionSerializer,
+    ScheduleSerializer,
+    ChosenSectionSerializer,
 )
 from .models.common import Semester
 from .models.course import Course
 from .models.section import Section
-
-
+from .models.schedule import Schedule, ChosenSection
 
 
 class SemesterViewSet(viewsets.ReadOnlyModelViewSet):

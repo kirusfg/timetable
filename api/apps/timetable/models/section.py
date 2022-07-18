@@ -59,4 +59,4 @@ class Section(models.Model):
     final_exam = models.BooleanField()
 
     def __str__(self):
-        return '%s' % (self.course.abbr)
+        return '%s - %s%s' % (self.course.abbr, self.type, self.number)

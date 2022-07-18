@@ -3,6 +3,7 @@ from django.contrib import admin
 from .models.common import Semester, AcademicLevel, School
 from .models.course import Course
 from .models.section import Section
+from .models.schedule import Schedule, ChosenSection
 
 
 @admin.register(Semester)
@@ -28,3 +29,13 @@ class SchoolAdmin(admin.ModelAdmin):
 @admin.register(Section)
 class SectionAdmin(admin.ModelAdmin):
     list_display = ['course', 'type', 'number']
+
+
+@admin.register(Schedule)
+class ScheduleAdmin(admin.ModelAdmin):
+    list_display = ['slot', 'user']
+
+
+@admin.register(ChosenSection)
+class ChosenSectionAdmin(admin.ModelAdmin):
+    list_display = ['schedule', 'section']

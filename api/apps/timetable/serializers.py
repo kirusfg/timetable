@@ -3,6 +3,7 @@ from rest_framework import serializers
 from .models.common import Semester
 from .models.course import Course
 from .models.section import Section
+from .models.schedule import Schedule, ChosenSection
 
 
 class SemesterSerializer(serializers.ModelSerializer):
@@ -21,3 +22,16 @@ class SectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Section
         fields = '__all__'
+
+
+class ScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Schedule
+        fields = '__all__'
+
+
+class ChosenSectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChosenSection
+        fields = '__all__'
+        depth = 1
