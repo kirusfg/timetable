@@ -37,7 +37,7 @@ const App = () => {
     (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       event.preventDefault()
 
-      navigate(route, { replace: true })
+      navigate(route)
     }
 
   const handleLoginLogout = (
