@@ -7,13 +7,6 @@ import { groupSections } from '../timetable/timetableSlice'
 import { AuthState, Login, loginUser, logoutUser } from '../auth/authSlice'
 import type { RootState } from '..'
 
-export type ApiResponse<T> = {
-  count: number
-  next?: string
-  previous?: string
-  results: T[]
-}
-
 export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:8000/api/v1/',
@@ -29,23 +22,24 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     getCourses: builder.query<Course[], void>({
       query: () => 'courses/',
-      transformResponse: (response: ApiResponse<Course>) => response.results,
+      keepUnusedDataFor: 5,
     }),
-    getSections: builder.query<ApiResponse<Section>, void>({
+    getSections: builder.query<Section[], void>({
       query: () => 'sections/',
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
           const { data: sections } = await queryFulfilled
-          dispatch(groupSections(sections.results))
+          dispatch(groupSections(sections))
         } catch {
           console.log('Error')
         }
       },
+      keepUnusedDataFor: 5,
     }),
-    getUserSchedule: builder.query<ApiResponse<Section>, User['username']>({
+    getUserSchedule: builder.query<Section[], User['username']>({
       query: (username) => `user/${username}/schedule`,
     }),
-    getUsers: builder.query<ApiResponse<User>, void>({
+    getUsers: builder.query<User, void>({
       query: () => 'users/',
     }),
     login: builder.query<AuthState, any>({
