@@ -65,4 +65,4 @@ class Course(models.Model):
     rno = models.IntegerField()
 
     def __str__(self):
-        return '%s' % (self.abbr)
+        return 'ID: %s Abbr: %s' % (self.id, self.abbr)
