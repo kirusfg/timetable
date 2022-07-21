@@ -154,7 +154,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Django REST Auth
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 REST_USE_JWT = True
-JWT_AUTH_COOKIE = 'timetable-auth'
+JWT_AUTH_COOKIE = 'timetable-access-token'
 SITE_ID = 1
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'apps.auth.serializers.UserSerializer',
