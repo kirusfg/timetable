@@ -147,7 +147,12 @@ const convertToDataGrid = (
 ): [any[], GridColDef[]] => {
   const rows = courses
     ? courses
-        .filter((course) => !schedule.courses.includes(course))
+        .filter((course) => {
+          // Remove courses that are already chosen
+          return !schedule.courses.find(
+            (chosenCourse) => chosenCourse.id === course.id
+          )
+        })
         .map((course: Course) => ({
           id: course.id,
           course: course.abbr,
