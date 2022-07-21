@@ -6,6 +6,7 @@ import User from '../../../types/User'
 import { groupSections } from '../timetable/timetableSlice'
 import { AuthState, Login, loginUser, logoutUser } from '../auth/authSlice'
 import type { RootState } from '..'
+import type Schedule from '../../../types/Schedule'
 
 export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
@@ -36,7 +37,7 @@ export const apiSlice = createApi({
       },
       keepUnusedDataFor: 5,
     }),
-    getUserSchedule: builder.query<Section[], User['username']>({
+    getUserSchedule: builder.query<Schedule, User['username']>({
       query: (username) => `user/${username}/schedule`,
     }),
     getUsers: builder.query<User, void>({

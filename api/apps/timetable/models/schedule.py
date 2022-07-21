@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 
 from .section import Section
+from .course import Course
 
 
 class Schedule(models.Model):
@@ -23,9 +24,18 @@ class Schedule(models.Model):
         )
 
 
+class ChosenCourse(models.Model):
+    """
+        The model represents a chosen course in one of the student's
+        saved schedule slots.
+    """
+    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
+
 class ChosenSection(models.Model):
     """
-        The model presents a chosen section in one of the student's
+        The model represents a chosen section in one of the student's
         saved schedule slots.
     """
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
