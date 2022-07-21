@@ -21,7 +21,7 @@ import NavbarItem from './components/navbar/NavbarItem'
 
 import { useAppSelector } from './app/hooks'
 import { selectUser } from './app/store/auth/authSlice'
-import { useLogoutMutation } from './app/store/api/apiSlice'
+import { useLogoutMutation } from './app/store/auth/authApiSlice'
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
 

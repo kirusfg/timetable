@@ -33,9 +33,12 @@ export const authSlice = createSlice({
       state.refresh_token = null
       state.user = null
     },
+    refreshToken: (state, action: PayloadAction<string>) => {
+      state.access_token = action.payload
+    },
   },
 })
 
-export const { loginUser, logoutUser } = authSlice.actions
+export const { loginUser, logoutUser, refreshToken } = authSlice.actions
 
 export const selectUser = (state: RootState): User | null => state.auth.user

@@ -21,7 +21,7 @@ import { AppDispatch } from '../../../app/store'
 import {
   useGetCoursesQuery,
   useGetSectionsQuery,
-} from '../../../app/store/api/apiSlice'
+} from '../../../app/store/timetable/timetableApiSlice'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import {
   chooseCourse,

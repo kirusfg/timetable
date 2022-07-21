@@ -21,7 +21,7 @@ import Page from '../page/Page'
 import PageBody from '../page/PageBody'
 import PageHeader from '../page/PageHeader'
 
-import { useLoginQuery } from '../../app/store/api/apiSlice'
+import { useLoginQuery } from '../../app/store/auth/authApiSlice'
 import { Login, selectUser } from '../../app/store/auth/authSlice'
 import { useAppSelector } from '../../app/hooks'
 
