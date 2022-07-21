@@ -28,7 +28,8 @@ import { useAppSelector } from '../../app/hooks'
 const LoginPage = () => {
   let navigate = useNavigate()
   let location = useLocation()
-  const from = location.state?.from?.pathname || '/'
+
+  const from = (location.state as any)?.from?.pathname || '/'
 
   const user = useAppSelector(selectUser)
 
