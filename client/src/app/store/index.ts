@@ -1,6 +1,15 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 
-import { persistCombineReducers, persistStore } from 'redux-persist'
+import {
+  persistCombineReducers,
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import { apiSlice } from './api/apiSlice'
@@ -22,7 +31,11 @@ const persistedReducer = persistCombineReducers(persistConfig, {
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware),
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(apiSlice.middleware),
 })
 
 export const persistor = persistStore(store)
