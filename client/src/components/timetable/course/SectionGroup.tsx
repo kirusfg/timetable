@@ -12,36 +12,36 @@ import SectionGroup from '../../../types/SectionGroup'
 import sectionTypeFull from '../../../utils/sectionTypes'
 
 interface SectionGroupCardProps {
-  sectionGroup: SectionGroup
+	sectionGroup: SectionGroup
 }
 
 const SectionGroupCard: React.FC<SectionGroupCardProps> = (props) => {
-  let { sectionGroup } = props
+	let { sectionGroup } = props
 
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: 'sectionGroup',
-    item: sectionGroup,
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  }))
+	const [{ isDragging }, drag] = useDrag(() => ({
+		type: 'sectionGroup',
+		item: sectionGroup,
+		collect: (monitor) => ({
+			isDragging: monitor.isDragging(),
+		}),
+	}))
 
-  return (
-    <Card
-      ref={drag}
-      sx={{
-        width: '100%',
-        maxWidth: 300,
-        opacity: isDragging ? 0.5 : 1,
-      }}
-    >
-      <CardContent>
-        <Typography variant='body2'>
-          {sectionTypeFull[sectionGroup.type]}
-        </Typography>
-      </CardContent>
-    </Card>
-  )
+	return (
+		<Card
+			ref={drag}
+			sx={{
+				width: '100%',
+				maxWidth: 300,
+				opacity: isDragging ? 0.5 : 1,
+			}}
+		>
+			<CardContent>
+				<Typography variant='body2'>
+					{sectionTypeFull[sectionGroup.type]}
+				</Typography>
+			</CardContent>
+		</Card>
+	)
 }
 
 export default SectionGroupCard

@@ -23,40 +23,40 @@ const container = document.getElementById('root')!
 const root = createRoot(container)
 
 root.render(
-  <React.StrictMode>
-    <DndProvider backend={HTML5Backend}>
-      <ReduxProvider store={store}>
-        <PersistGate persistor={persistor}>
-          <BrowserRouter>
-            <Routes>
-              <Route path='/' element={<App />}>
-                <Route index element={<HomePage />} />
-                <Route path='timetable'>
-                  <Route
-                    path='courses'
-                    element={
-                      <ProtectedRoute>
-                        <SelectorPage />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path='schedule'
-                    element={
-                      <ProtectedRoute>
-                        <SchedulePage />
-                      </ProtectedRoute>
-                    }
-                  />
-                </Route>
-                <Route path='auth'>
-                  <Route path='login' element={<LoginPage />} />
-                </Route>
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </PersistGate>
-      </ReduxProvider>
-    </DndProvider>
-  </React.StrictMode>
+	<React.StrictMode>
+		<DndProvider backend={HTML5Backend}>
+			<ReduxProvider store={store}>
+				<PersistGate persistor={persistor}>
+					<BrowserRouter>
+						<Routes>
+							<Route path='/' element={<App />}>
+								<Route index element={<HomePage />} />
+								<Route path='timetable'>
+									<Route
+										path='courses'
+										element={
+											<ProtectedRoute>
+												<SelectorPage />
+											</ProtectedRoute>
+										}
+									/>
+									<Route
+										path='schedule'
+										element={
+											<ProtectedRoute>
+												<SchedulePage />
+											</ProtectedRoute>
+										}
+									/>
+								</Route>
+								<Route path='auth'>
+									<Route path='login' element={<LoginPage />} />
+								</Route>
+							</Route>
+						</Routes>
+					</BrowserRouter>
+				</PersistGate>
+			</ReduxProvider>
+		</DndProvider>
+	</React.StrictMode>
 )

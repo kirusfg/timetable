@@ -1,3 +1,3 @@
 export const ItemTypes = {
-  SECTION: 'section',
+	SECTION: 'section',
 }

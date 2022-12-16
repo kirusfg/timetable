@@ -8,16 +8,16 @@ import Steps from '../../components/common/Steps'
 import Table from '../../components/timetable/table/Table'
 
 const SchedulePage = () => {
-  return (
-    <Page>
-      <PageHeader title='Timetable'>
-        <Steps steps={steps} clickable />
-      </PageHeader>
-      <PageBody>
-        <Table />
-      </PageBody>
-    </Page>
-  )
+	return (
+		<Page>
+			<PageHeader title='Timetable'>
+				<Steps steps={steps} clickable />
+			</PageHeader>
+			<PageBody>
+				<Table />
+			</PageBody>
+		</Page>
+	)
 }
 
 export default SchedulePage
